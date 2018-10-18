@@ -8,7 +8,10 @@ namespace NatureCottages.Database.Persitance
 {
     public class CottageDbContext : DbContext
     {
-
+        public CottageDbContext(DbContextOptions<CottageDbContext> options) : base (options)
+        {
+            
+        }
         public DbSet<Booking> Bookings { get; set; }
 
         public DbSet<Attraction> Attractions { get; set; }
