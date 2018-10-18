@@ -5,11 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Home\" />
+    <Folder Include="Views\Admin\" />
+    <Folder Include="Views\LocalArea\" />
+    <Folder Include="Views\Availability\" />
+    <Folder Include="Views\Contact\" />
+    <Folder Include="Views\Shared\Layout\" />
+    <Folder Include="Views\Shared\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>
 
 </Project>
