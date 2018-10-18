@@ -3,4 +3,20 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-
+<div class="mdl-layout mdl-js-layout">
+<header class="mdl-layout__header mdl-layout__header--scroll">
+    <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title">Nature Cottages</span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation -->
+        <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="@Url.Action("Index", "Home")">Home</a>            
+            <a class="mdl-navigation__link" href="@Url.Action("Index", "Availability")">Availability</a>
+            <a class="mdl-navigation__link" href="@Url.Action("Index", "Contact")">Contact</a>
+            <a class="mdl-navigation__link" href="@Url.Action("Index", "LocalArea")">Local Area</a>
+        </nav>
+    </div>
+</header>
+</div>

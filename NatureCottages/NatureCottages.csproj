@@ -6,10 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\LocalArea\" />
-    <Folder Include="Views\Availability\" />
-    <Folder Include="Views\Contact\" />
-    <Folder Include="wwwroot\" />
+    <Folder Include="wwwroot\Styles\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -8,10 +8,12 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="Styles/material.min.css" />
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" />
     <title>_Layout</title>
 </head>
 
-<partial name="_NavigationBar"></partial>
+@Html.Partial("_NavigationBar")
 
 
 <body>
@@ -20,6 +22,6 @@
 </div>
 </body>
 
-<partial name="_FooterBar"></partial>
+@Html.Partial("_FooterBar")
 
 </html>
