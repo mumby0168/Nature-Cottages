@@ -5,13 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Home\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\LocalArea\" />
     <Folder Include="Views\Availability\" />
     <Folder Include="Views\Contact\" />
-    <Folder Include="Views\Shared\Layout\" />
-    <Folder Include="Views\Shared\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
