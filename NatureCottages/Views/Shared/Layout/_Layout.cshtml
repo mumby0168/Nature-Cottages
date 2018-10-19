@@ -17,12 +17,16 @@
 @await Html.PartialAsync("_NavigationBar")
 
 
-<body>
-<div class="mdl-layout__content">
-    @RenderBody();
-</div>
-</body>
+    <body style="margin: 10px;">
+        <div class="mdl-layout__content">
+            @RenderBody();
+        </div>
 
-@await Html.PartialAsync("_FooterBar")
+        @await Html.PartialAsync("_FooterBar")
+    
+
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    </body>
+
 
 </html>

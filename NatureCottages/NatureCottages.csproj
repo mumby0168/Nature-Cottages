@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <Folder Include="Views\Admin\" />
+    <Folder Include="wwwroot\js\" />
+    <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NatureCottages.Database\NatureCottages.Database.csproj" />
+    <ProjectReference Include="..\NatureCottages.ViewModels\NatureCottages.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>
