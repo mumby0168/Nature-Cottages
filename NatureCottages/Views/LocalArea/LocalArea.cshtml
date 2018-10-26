@@ -1,6 +1,5 @@
 ﻿
-@{
-    ViewData["Title"] = "LocalArea";
+@{    
     Layout = "~/Views/Shared/Layout/_Layout.cshtml";
     
 }
@@ -11,22 +10,24 @@
 @using NatureCottages.ViewModels.Availability
 @model NatureCottages.ViewModels.Availability.LocalAreaPageViewModel
 
-<h2>LocalArea</h2>
+<div>
+    
+
+    <div class="mdl-grid">
+
+        @foreach (var att in Model.Attractions)
+        {
+            <div class="mdl-cell--3-col mdl-cell">
+                @{
+                    AttractionCardViewModel vm = new AttractionCardViewModel();
+                    vm.Attraction = att;
+                    @await Html.PartialAsync("_AttractionCard", vm)
+                }
+            </div>
+        }
 
 
-<div class="mdl-grid">
-
-    @foreach (var att in Model.Attractions)
-    {
-        <div class="mdl-cell--6-col mdl-cell">
-            @{
-                AttractionCardViewModel vm = new AttractionCardViewModel();
-                vm.Attraction = att;
-                @await Html.PartialAsync("_AttractionCard", vm)            
-            }
-        </div>
-    }
-
+    </div>
 
 </div>
 
