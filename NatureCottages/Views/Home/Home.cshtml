@@ -1,7 +1,24 @@
-﻿
+﻿@using NatureCottages.ViewModels.Home
+@model NatureCottages.ViewModels.Home.HomeViewModel
 @{
     Layout = "~/Views/Shared/Layout/_Layout.cshtml";
 }
 
-<h2>Home</h2>
+<div id="MainImageArea">
+    
+</div>
+<div style="text-align: center">
+    <h4 style="margin-left: auto; margin-right: auto;">Some of our Cottages</h4>
+    <hr/>
+</div>
 
+
+<div id="SimpleCottageGrid" class="mdl-grid">
+    @foreach (var cottage in Model.Cottages)
+    {
+    <div class="mdl-cell--4-col mdl-cell" align="center">
+        @Html.Partial("_BasicCottageCard", new CottageCardViewModel() { Cottage = cottage })
+    </div>
+        
+    }
+</div>

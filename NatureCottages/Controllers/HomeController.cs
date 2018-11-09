@@ -3,14 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NatureCottages.Database.Repositorys.DomainRepositorys.Interfaces;
+using NatureCottages.ViewModels.Home;
 
 namespace NatureCottages.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ICottageRepository _cottageRepository;
+
+        public HomeController(ICottageRepository cottageRepository)
         {
-            return View("Home");
+            _cottageRepository = cottageRepository;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var vm = new HomeViewModel();
+            var cottages = await _cottageRepository.GetThreeCottages();
+            vm.Cottages = cottages.ToList();
+
+            return View("Home", vm);
         }
     }
 }

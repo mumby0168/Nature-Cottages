@@ -5,3 +5,32 @@
     height: 100%;
 }
 
+main {
+    height: 90%;    
+}
+footer {
+    height: 10%;
+}
+
+.cottage-card {
+    border-radius: 5px;
+    width: 80%;
+    text-align: left;
+}
+
+.attraction-card {
+    width: 80%;
+}
+
+
+#MainImageArea {
+    height: 50%;
+    background-image: url('../images/cott2.jpg');
+    background-position: center;
+    background-size: cover;
+}
+
+#SimpleCottageGrid {
+    height: 20%;
+}
+

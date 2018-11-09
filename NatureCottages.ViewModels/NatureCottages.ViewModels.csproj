@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Home\" />
     <Folder Include="Contact\" />
     <Folder Include="LocalArea\" />
     <Folder Include="Admin\" />
