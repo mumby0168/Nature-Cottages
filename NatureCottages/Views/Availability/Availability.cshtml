@@ -1,4 +1,5 @@
-﻿
+﻿@using NatureCottages.ViewModels.Availability
+@model NatureCottages.ViewModels.Availability.AvailabilityViewModel
 @{
     ViewData["Title"] = "Availability";
     Layout = "~/Views/Shared/Layout/_Layout.cshtml";
@@ -6,3 +7,19 @@
 
 <h2>Availability</h2>
 
+
+<div>
+    <div class="mdl-grid">
+
+        @foreach (var cottage in Model.Cottages)
+        {
+            <div class="mdl-cell--4-col mdl-cell" align="center">
+                @{
+                    BookableCottageViewModel vm = new BookableCottageViewModel();
+                    vm.Cottage = cottage;
+                    @await Html.PartialAsync("_BookableCottageCard", vm)
+                }
+            </div>
+        }
+    </div>
+</div>

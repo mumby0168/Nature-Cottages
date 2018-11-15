@@ -44,22 +44,10 @@ namespace NatureCottages
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
 
-            var dbcon = serviceProvider.GetService<CottageDbContext>();
-
-            var list = dbcon.Cottages.ToList();
-
-            foreach (var cottage in list)
-            {
-                cottage.Description =
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation";
-            }
-
-            dbcon.SaveChanges();
-            
-
-            app.UseMvcWithDefaultRoute();
-
             app.UseStaticFiles();
+
+
+            app.UseMvcWithDefaultRoute();            
 
             if (env.IsDevelopment())
             {
