@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NatureCottages.Database.Persitance;
 
@@ -16,18 +15,34 @@ namespace NatureCottages.Database.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("NatureCottages.Database.Domain.Account", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<byte[]>("Password");
+
+                    b.Property<byte[]>("Salt");
+
+                    b.Property<string>("Username");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Account");
+                });
 
             modelBuilder.Entity("NatureCottages.Database.Domain.Attraction", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("ImageLocation");
+                    b.Property<int>("ImageGroupId");
+
+                    b.Property<bool>("IsVisibleToClient");
 
                     b.Property<string>("Link");
 
@@ -35,14 +50,15 @@ namespace NatureCottages.Database.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ImageGroupId");
+
                     b.ToTable("Attractions");
                 });
 
             modelBuilder.Entity("NatureCottages.Database.Domain.Booking", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("CottageId");
 
@@ -68,12 +84,13 @@ namespace NatureCottages.Database.Migrations
             modelBuilder.Entity("NatureCottages.Database.Domain.Cottage", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("ImageLocation");
+                    b.Property<int>("ImageGroupId");
+
+                    b.Property<bool>("IsVisibleToClient");
 
                     b.Property<string>("Name");
 
@@ -81,24 +98,63 @@ namespace NatureCottages.Database.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ImageGroupId");
+
                     b.ToTable("Cottages");
                 });
 
             modelBuilder.Entity("NatureCottages.Database.Domain.Customer", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Email");
+                    b.Property<int>("AccountId");
 
-                    b.Property<string>("FullName");
+                    b.Property<string>("FullName")
+                        .IsRequired();
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AccountId");
+
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("NatureCottages.Database.Domain.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("ImageGroupId");
+
+                    b.Property<string>("ImagePath");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ImageGroupId");
+
+                    b.ToTable("Image");
+                });
+
+            modelBuilder.Entity("NatureCottages.Database.Domain.ImageGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ImageGroups");
+                });
+
+            modelBuilder.Entity("NatureCottages.Database.Domain.Attraction", b =>
+                {
+                    b.HasOne("NatureCottages.Database.Domain.ImageGroup", "ImageGroup")
+                        .WithMany()
+                        .HasForeignKey("ImageGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("NatureCottages.Database.Domain.Booking", b =>
@@ -112,6 +168,29 @@ namespace NatureCottages.Database.Migrations
                         .WithMany("Bookings")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("NatureCottages.Database.Domain.Cottage", b =>
+                {
+                    b.HasOne("NatureCottages.Database.Domain.ImageGroup", "ImageGroup")
+                        .WithMany()
+                        .HasForeignKey("ImageGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("NatureCottages.Database.Domain.Customer", b =>
+                {
+                    b.HasOne("NatureCottages.Database.Domain.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("NatureCottages.Database.Domain.Image", b =>
+                {
+                    b.HasOne("NatureCottages.Database.Domain.ImageGroup")
+                        .WithMany("Images")
+                        .HasForeignKey("ImageGroupId");
                 });
 #pragma warning restore 612, 618
         }

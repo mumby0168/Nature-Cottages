@@ -7,11 +7,20 @@
   <ItemGroup>
     <Folder Include="Contact\" />
     <Folder Include="LocalArea\" />
-    <Folder Include="Admin\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NatureCottages.Database\NatureCottages.Database.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Http.Features">
+      <HintPath>..\..\..\..\.nuget\packages\microsoft.aspnetcore.http.features\2.1.1\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

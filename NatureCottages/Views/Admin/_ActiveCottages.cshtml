@@ -1,0 +1,44 @@
+﻿@model NatureCottages.ViewModels.Admin.ActiveCottagesViewModel
+@*
+     
+*@
+
+@{
+    Layout = "Layout/_Layout";
+}
+
+<div align="center">
+        
+  
+    <table id="ActiveCottagesTable" class="mdl-data-table active-cottages-table">       
+        <caption>
+            <div>
+                <a class="mdl-button--colored mdl-button--raised mdl-button table-header-button" href="@Url.Action("LoadCottageForm", "Form")">Add Cottage</a>
+                <h2><i class="fas fa-home"></i> Active Cottages</h2>
+            </div>
+        </caption>
+        <thead>
+        <tr>
+            <th style="width: 10%;">Cotttage Name</th>
+            <th style="width: 10%;">Cottage Images</th>
+            <th style="width: 5%;">Operations</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var cot in Model.Cottages)
+        {
+            <tr>
+                <td>
+                    @cot.Name
+                </td>
+                <td>
+                    <button class="mdl-button--accent mdl-button--raised mdl-button">View Images</button>
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "LoadCottageEditForm", "Form", new { cottid = cot.Id }, new { @class = "mdl-button--accent mdl-button--raised mdl-button" })                   
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>

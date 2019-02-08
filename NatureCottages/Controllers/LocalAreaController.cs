@@ -23,6 +23,7 @@ namespace NatureCottages.Controllers
         public IActionResult Index()
         {
             var list = _attractionRepository.GetAll();
+            list = list.Where(a => a.IsVisibleToClient == true);
             var vm = new LocalAreaPageViewModel();
             vm.Attractions = new List<Attraction>(list);
             return View("LocalArea", vm);

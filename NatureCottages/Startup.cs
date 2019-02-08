@@ -14,6 +14,9 @@ using NatureCottages.Database.Domain;
 using NatureCottages.Database.Persitance;
 using NatureCottages.Database.Repositorys.DomainRepositorys;
 using NatureCottages.Database.Repositorys.DomainRepositorys.Interfaces;
+using NatureCottages.Services.Interfaces;
+using NatureCottages.Services.Services;
+
 
 namespace NatureCottages
 {
@@ -30,12 +33,16 @@ namespace NatureCottages
 
 
             string dbConnectionString =
-                @"Server=(localdb)\mssqllocaldb;Database=EFGetStarted.AspNetCore.NewDb;Trusted_Connection=True;ConnectRetryCount=0";
+                @"server=176.32.230.252;port=3306;pwd=NatureCottages123;uid=cl57-mumby0168;database=cl57-mumby0168;;";
 
-            services.AddDbContext<CottageDbContext>(options => { options.UseSqlServer(dbConnectionString); });
+            services.AddDbContext<CottageDbContext>(options => { options.UseMySql(dbConnectionString); });
 
             services.AddScoped<IAttractionRepository, AttractionRepository>();
             services.AddScoped<ICottageRepository, CottageRepository>();
+            services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<IImageGroupRepository, ImageGroupRepository>();
+            services.AddScoped<IMailServerService, MailServersService>();
+            services.AddScoped<ICalendarService, CalendarService>();
 
 
         }
@@ -44,9 +51,17 @@ namespace NatureCottages
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
 
+            var dbContext = serviceProvider.GetService<CottageDbContext>();
+
+
+
+            dbContext.SaveChanges();
+            dbContext.Dispose();
+
             app.UseStaticFiles();
 
-
+            app.UseDeveloperExceptionPage();            
+            
             app.UseMvcWithDefaultRoute();            
 
             if (env.IsDevelopment())

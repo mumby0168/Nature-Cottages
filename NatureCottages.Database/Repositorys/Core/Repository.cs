@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 using NatureCottages.Database.Persitance;
 using NatureCottages.Database.Repositorys.Core.Interfaces;
 
@@ -33,6 +34,11 @@ namespace NatureCottages.Database.Repositorys.Core
         public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
             return Context.Set<TEntity>().SingleOrDefault(predicate);
+        }
+
+        public async Task SaveAsync()
+        {
+            await Context.SaveChangesAsync();
         }
 
         public void Add(TEntity entity)

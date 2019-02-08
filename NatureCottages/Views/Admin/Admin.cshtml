@@ -1,0 +1,50 @@
+﻿@model NatureCottages.ViewModels.Admin.AdminViewModel
+@{
+    Layout = "Layout/_Layout";
+}
+
+
+<div align="center" style="height: 100%;">
+    <h1>Admin Control Panel</h1>        
+        <div class="mdl-grid full-height-grid" align="center">
+            <div class="admin-tile mdl-cell mdl-cell--6-col mdl-shadow--4dp">
+                <div class="admin-tile-container" align="center">        
+                    <div class="center-vertically">
+                        <a class="clickable-anchor" href="@Url.Action("LoadActiveCottages", "Admin")">
+                            <i class="fas fa-home fa-9x"></i>
+                            <h2 style="font-size: 22px;"> Cottage Management</h2>
+                        </a>
+                    </div>                    
+                </div>
+            </div>
+            <div class="admin-tile mdl-cell mdl-cell--6-col mdl-shadow--4dp">
+                <div class="admin-tile-container">
+                    <div class="center-vertically">
+                        <i class="fas fa-landmark fa-9x"></i>
+                        <h2 style="font-size: 22px;"> Attractions Management</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="admin-tile mdl-cell mdl-cell--6-col mdl-shadow--4dp">
+                <div class="admin-tile-container">
+                    <a class="clickable-anchor" href="@Url.Action("LoadBookingRequests", "Admin")">
+                        <div class="center-vertically">
+                            <i class="fas fa-home fa-9x"></i>
+                            <h2 style="font-size: 22px;"> Booking Requests</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="admin-tile mdl-cell mdl-cell--6-col mdl-shadow--4dp">
+                <div class="admin-tile-container">
+                    <div class="center-vertically">
+                        <a class="clickable-anchor">
+                            <i class="fas fa-home fa-9x"></i>
+                            <h2 style="font-size: 22px;"> Cottage Management</h2>
+                        </a>
+                    </div>
+                </div>
+            </div>   
+        </div>             
+</div>
+

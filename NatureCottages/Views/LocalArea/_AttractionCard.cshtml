@@ -9,7 +9,7 @@
 @model NatureCottages.ViewModels.Availability.AttractionCardViewModel
 
 @{
-    string imgpath = Model.Attraction.ImageLocation;
+    string imgpath = Model.Attraction.ImageGroup.Images[0].ImagePath;
     
   }
 

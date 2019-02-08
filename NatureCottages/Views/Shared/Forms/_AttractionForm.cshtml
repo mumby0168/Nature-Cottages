@@ -1,0 +1,17 @@
+﻿@model NatureCottages.Database.Domain.Attraction
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{ 
+    Layout = "Layout/_Layout";
+}
+<h3>Add Attraction</h3>
+
+@using (Html.BeginForm("", "", FormMethod.Post))
+{
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        @Html.LabelFor(m => Model.Name, new { @class = "mdl-textfield__label" })
+        @Html.TextBoxFor(m => Model.Name, new { @class = "mdl-textfield__input" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+}

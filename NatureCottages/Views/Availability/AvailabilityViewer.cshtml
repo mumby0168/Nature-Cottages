@@ -1,0 +1,19 @@
+﻿@model NatureCottages.ViewModels.Availability.AvailabilityViewerViewModel
+  @{
+      int month = DateTime.Now.Month;
+
+      string currentMonthText = Model.MonthsDictionary[month];
+  }
+
+
+
+
+
+<table id="CalendarTable" cottageId="@Model.Cottage.Id">
+    <tbody>
+
+    </tbody>
+</table>
+
+@*<script src="~/js/CalendarHandler.js"></script>*@
+

@@ -19,5 +19,7 @@ namespace NatureCottages.Database.Persitance
         public DbSet<Cottage> Cottages { get; set; }
 
         public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<ImageGroup> ImageGroups { get; set; }
     }
 }

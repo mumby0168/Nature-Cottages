@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace NatureCottages.Database.Repositorys.Core.Interfaces
 {
@@ -14,5 +15,7 @@ namespace NatureCottages.Database.Repositorys.Core.Interfaces
         void Remove(TEntity entity);
         void RemoveRange(IEnumerable<TEntity> entities);
         TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
+
+        Task SaveAsync();
     }
 }
