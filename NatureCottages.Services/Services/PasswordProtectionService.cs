@@ -8,24 +8,18 @@ namespace NatureCottages.Services.Services
 {
     public class PasswordProtectionService : IPasswordProtectionService
     {
-        public List<byte[]> Encrypt(string password)
+        public Tuple<byte[], byte[]> Encrypt(string password)
         {
             var salt = GenerateSalt();
 
-            var rfc2 = new Rfc2898DeriveBytes(password, salt, 10);
+            var rfc2 = new Rfc2898DeriveBytes(password, salt, 10);            
 
-            List<byte[]> details = new List<byte[]>()
-            {
-                rfc2.GetBytes(32),
-                salt
-            };
-
-            return details;
+            return new Tuple<byte[], byte[]>(rfc2.GetBytes(32), salt);
         }
 
         public bool Check(string passwordEntered, byte[] passwordToCheck, byte[] salt)
         {
-            var provider = new Rfc2898DeriveBytes(passwordToCheck, salt, 10);
+            var provider = new Rfc2898DeriveBytes(passwordEntered, salt, 10);
 
             var one = GetString(provider.GetBytes(32));
 
@@ -34,12 +28,12 @@ namespace NatureCottages.Services.Services
             return one == two;
         }
 
-        public string GetString(byte[] bytes)
+        private string GetString(byte[] bytes)
         {
             return Encoding.Default.GetString(bytes);
         }
 
-        public byte[] GenerateSalt()
+        private byte[] GenerateSalt()
         {
             var salt = new byte[32];
 

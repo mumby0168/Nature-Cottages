@@ -15,41 +15,32 @@
 
             <div class="mdl-cell mdl-cell--6-col center-outer">
                 <div class="center-inner">
+                    
+                    <div id="AccountHandlingArea">
+                        Re
+                    </div>
+                    
 
-                    @using (Html.BeginForm("Enquire", "Availability", FormMethod.Post, new { style = "float: left;" }))
+
+                    @using (Html.BeginForm("Enquire", "Availability", FormMethod.Post, new {style = "float: left;"}))
                     {
-                        <h4>Personal Details</h4>
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            @Html.LabelFor(m => Model.Booking.Customer.FullName, new { @class = "mdl-textfield__label" })
-                            @Html.TextBoxFor(m => Model.Booking.Customer.FullName, new { @class = "mdl-textfield__input" })
-                            @Html.ValidationMessageFor(m => m.Booking.Customer.FullName)
-                        </div>
-
-                        <br />                                           
-
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            @Html.LabelFor(m => Model.Booking.Customer.PhoneNumber, new { @class = "mdl-textfield__label" })
-                            @Html.TextBoxFor(m => Model.Booking.Customer.PhoneNumber, new { @class = "mdl-textfield__input" })
-                            @Html.ValidationMessageFor(m => m.Booking.Customer.PhoneNumber)
-                        </div>
-
                         <h4>Booking Details</h4>
 
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            @Html.LabelFor(m => Model.Booking.DateFrom, new { @class = "mdl-textfield__label" })
-                            @Html.TextBoxFor(m => Model.Booking.DateFrom, new { @class = "mdl-textfield__input", @type = "date", placeholder = "Date Here." })
+                            @Html.LabelFor(m => Model.Booking.DateFrom, new {@class = "mdl-textfield__label"})
+                            @Html.TextBoxFor(m => Model.Booking.DateFrom, new {@class = "mdl-textfield__input", @type = "date", placeholder = "Date Here."})
                             @Html.ValidationMessageFor(m => m.Booking.DateFrom)
                         </div>
 
-                        <br />
+                        <br/>
 
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            @Html.LabelFor(m => Model.Booking.DateTo, new { @class = "mdl-textfield__label" })
-                            @Html.TextBoxFor(m => Model.Booking.DateTo, new { @class = "mdl-textfield__input", @type = "date", placeholder = "Date Here." })
+                            @Html.LabelFor(m => Model.Booking.DateTo, new {@class = "mdl-textfield__label"})
+                            @Html.TextBoxFor(m => Model.Booking.DateTo, new {@class = "mdl-textfield__input", @type = "date", placeholder = "Date Here."})
                             @Html.ValidationMessageFor(m => m.Booking.DateTo)
                         </div>
 
-                        <br />
+                        <br/>
 
                         @Html.HiddenFor(m => m.Booking.CottageId)
                         <br/>

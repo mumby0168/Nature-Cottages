@@ -40,9 +40,13 @@ namespace NatureCottages
             services.AddScoped<IAttractionRepository, AttractionRepository>();
             services.AddScoped<ICottageRepository, CottageRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IImageGroupRepository, ImageGroupRepository>();
             services.AddScoped<IMailServerService, MailServersService>();
             services.AddScoped<ICalendarService, CalendarService>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IPasswordProtectionService, PasswordProtectionService>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
 
 
         }
