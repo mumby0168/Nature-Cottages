@@ -29,6 +29,7 @@ namespace NatureCottages.Controllers
         [Route("/[controller]/Login")]
         public IActionResult LoadLogin()
         {
+            
             return View("Login");
         }
 
@@ -51,20 +52,11 @@ namespace NatureCottages.Controllers
 
         public async Task<IActionResult> LoginCustomer(LoginViewModel vm)
         {            
-            var result = await _accountService.CheckAccount(vm.Username, vm.Password);
+            var result = await _accountService.CheckAccount(vm.Username, vm.Password, HttpContext);
 
             
-
-            //TODO: Figure out what to return here.
-            if (result)
-            {
-                throw new Exception();
-
-            }
-            else
-            {
-                throw new Exception();
-            }
+            
+            return result ? RedirectToAction("Index", "Home") : RedirectToAction("LoginCustomer");
         }
     }
 }

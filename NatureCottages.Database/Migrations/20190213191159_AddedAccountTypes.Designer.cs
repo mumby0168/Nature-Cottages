@@ -9,8 +9,8 @@ using NatureCottages.Database.Persitance;
 namespace NatureCottages.Database.Migrations
 {
     [DbContext(typeof(CottageDbContext))]
-    [Migration("20190208131741_AddedAccountForCustomer")]
-    partial class AddedAccountForCustomer
+    [Migration("20190213191159_AddedAccountTypes")]
+    partial class AddedAccountTypes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,8 @@ namespace NatureCottages.Database.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccountType");
 
                     b.Property<byte[]>("Password");
 

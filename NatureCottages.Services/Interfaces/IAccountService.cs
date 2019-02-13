@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using NatureCottages.ViewModels.Account;
 
 namespace NatureCottages.Services.Interfaces
@@ -10,6 +11,6 @@ namespace NatureCottages.Services.Interfaces
     {
         Task CreateCustomerAccount(CreateAccountViewModel vm);
 
-        Task<bool> CheckAccount(string username, string password);
+        Task<bool> CheckAccount(string username, string password, HttpContext context);
     }
 }

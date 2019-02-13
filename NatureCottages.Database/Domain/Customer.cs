@@ -6,6 +6,7 @@ using System.Text;
 
 namespace NatureCottages.Database.Domain
 {
+
     public class Customer
     {
         public int Id { get; set; }

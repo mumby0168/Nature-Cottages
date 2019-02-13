@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -48,6 +49,14 @@ namespace NatureCottages
             services.AddScoped<IPasswordProtectionService, PasswordProtectionService>();
             services.AddScoped<IAccountRepository, AccountRepository>();
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+                    options =>
+                    {                        
+                        options.LoginPath = "/Account/Login";
+                        options.LogoutPath = "";
+                    });
+
 
         }
 
@@ -55,16 +64,16 @@ namespace NatureCottages
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
 
-            var dbContext = serviceProvider.GetService<CottageDbContext>();
-
-
+            var dbContext = serviceProvider.GetService<CottageDbContext>();            
 
             dbContext.SaveChanges();
             dbContext.Dispose();
 
             app.UseStaticFiles();
 
-            app.UseDeveloperExceptionPage();            
+            app.UseDeveloperExceptionPage();
+
+            app.UseAuthentication();
             
             app.UseMvcWithDefaultRoute();            
 

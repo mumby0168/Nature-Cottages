@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NatureCottages.Database.Repositorys.DomainRepositorys.Interfaces;
 using NatureCottages.ViewModels.Home;
 
 namespace NatureCottages.Controllers
-{
+{    
     public class HomeController : Controller
     {
         private readonly ICottageRepository _cottageRepository;
@@ -16,6 +17,7 @@ namespace NatureCottages.Controllers
         {
             _cottageRepository = cottageRepository;
         }
+
         public async Task<IActionResult> Index()
         {
             var vm = new HomeViewModel();

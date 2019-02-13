@@ -22,6 +22,8 @@ namespace NatureCottages.Database.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("AccountType");
+
                     b.Property<byte[]>("Password");
 
                     b.Property<byte[]>("Salt");

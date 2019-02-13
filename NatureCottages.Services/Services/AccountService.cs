@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using NatureCottages.Database.Domain;
 using NatureCottages.Database.Repositorys.DomainRepositorys.Interfaces;
 using NatureCottages.Services.Interfaces;
@@ -32,7 +36,7 @@ namespace NatureCottages.Services.Services
            await _customerRepository.SaveAsync();
         }
 
-        public async Task<bool> CheckAccount(string username, string password)
+        public async Task<bool> CheckAccount(string username, string password, HttpContext context)
         {            
                
             var account = await _accountRepository.SingleOrDefaultAysnc(a => a.Username == username);
@@ -41,7 +45,22 @@ namespace NatureCottages.Services.Services
 
             var passwordMatches = _passwordProtectionService.Check(password, account.Password, account.Salt);
 
-            return passwordMatches;
+            if (passwordMatches)
+            {
+                //sign in user
+
+                var claimIdent = new ClaimsIdentity(new List<Claim>()
+                {
+                    new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
+                    new Claim(ClaimTypes.Email, account.Username),
+                    new Claim(ClaimTypes.Role, account.AccountType.ToString())
+                }, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdent));
+                return true;
+            }
+
+            return false;
         }
     }
 }
