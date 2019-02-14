@@ -41,6 +41,16 @@ namespace NatureCottages.Database.Repositorys.DomainRepositorys
             return cottage.Id;
         }
 
+        public async Task<List<Cottage>> GetCottagesVisibleToClientsWithImagesAsync()
+        {
+            return await Task.Run(
+                () => Context.Cottages
+                .Include(c => c.ImageGroup)
+                .Include(c => c.ImageGroup.Images)
+                .Where(c => c.IsVisibleToClient)
+                .ToList());
+        }
+
         public async Task<IEnumerable<Booking>> GetBookingsForCottageUntilEndOfYear(int year, int id)
         {
             var cottage = await Task.Run(() => Context.Cottages.Include(c => c.Bookings).FirstOrDefault(c => c.Id == id));

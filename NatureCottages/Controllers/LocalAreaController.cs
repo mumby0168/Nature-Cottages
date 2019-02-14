@@ -19,13 +19,13 @@ namespace NatureCottages.Controllers
         {
             _attractionRepository = serviceProvider.GetService<IAttractionRepository>();
         }
-
-        public IActionResult Index()
+        
+        public async Task<IActionResult> Index()
         {
-            var list = _attractionRepository.GetAll();
-            list = list.Where(a => a.IsVisibleToClient == true);
-            var vm = new LocalAreaPageViewModel();
-            vm.Attractions = new List<Attraction>(list);
+            var attractions = await _attractionRepository.GetAttractionsVisibleToClientAsync();
+
+            var vm = new LocalAreaPageViewModel() {Attractions = attractions};
+
             return View("LocalArea", vm);
         }
     }

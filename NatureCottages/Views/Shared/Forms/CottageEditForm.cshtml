@@ -1,4 +1,5 @@
-﻿@model NatureCottages.ViewModels.Forms.CottageFormViewModel
+﻿@using NatureCottages.ViewModels.General
+@model NatureCottages.ViewModels.Forms.CottageFormViewModel
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -56,9 +57,7 @@
         
 
         <div class="mdl-cell mdl-cell--6-col">
-            @await Html.PartialAsync("ImageViewer", Model.Cottage.ImageGroup)
-            
-            <button id="edit-images-btn">Edit Images Toggle</button>
+            @await Html.PartialAsync("ImageViewer", new ImageViewerViewModel{ImageGroup = Model.Cottage.ImageGroup, IsEditable = true})                        
             
             <h2>Add Extra Images Here</h2>
 

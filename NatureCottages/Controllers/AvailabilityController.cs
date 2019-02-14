@@ -24,26 +24,28 @@ namespace NatureCottages.Controllers
             _bookingRepository = bookingRepository;
         }
         public async Task<IActionResult> Index()
-        {
-            var cottages = await _cottageRepository.GetCottagesWithImagesAsync();
+        {            
+            var cottages = await _cottageRepository.GetCottagesVisibleToClientsWithImagesAsync();
 
-            var vm = new AvailabilityViewModel {Cottages = cottages.ToList().Where(c => c.IsVisibleToClient == true).ToList()};
+            var vm = new AvailabilityViewModel {Cottages = cottages};
 
             return View("Availability", vm);
         }
 
         [Authorize(Roles = "Admin, Standard")]
         public async Task<IActionResult> LoadEnquirePage(int cottageid)
-        {            
-            var vm = new EnquireFormViewModel();
-            vm.Booking.Cottage = await _cottageRepository.GetCottageWithImagesAsync(cottageid);
-            vm.Booking.CottageId = vm.Booking.Cottage.Id;
-            var usernameClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
-
-            vm.Username = usernameClaim?.Value;
-
-
-
+        {                                   
+            var vm = new EnquireFormViewModel
+            {
+                Booking =
+                {
+                    Cottage = await _cottageRepository.GetCottageWithImagesAsync(cottageid), CottageId = cottageid
+                },                
+                Username = HttpContext.User.Claims
+                    .FirstOrDefault(c => c.Type == ClaimTypes.Email)?
+                    .Value
+            };
+            
             return View("_EnquirePage", vm);
         }
 
@@ -51,6 +53,7 @@ namespace NatureCottages.Controllers
         [Authorize(Roles = "Admin, Standard")]
         public async Task<IActionResult> Enquire(Booking booking)
         {
+            //TODO: Refactor the booking checks
             booking.IsPendingApproval = true;
             if (ModelState.IsValid)
             {

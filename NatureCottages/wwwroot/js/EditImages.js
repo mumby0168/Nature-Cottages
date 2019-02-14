@@ -1,29 +1,28 @@
 ﻿$(document).ready(() => {
 
+    var removeButtons = $(".remove-image-button");
+    var i = 0;
 
-    $("#edit-images-btn").click(editClicked);
+    if (removeButtons !== null) {
+        for (i = 0; i < removeButtons.length; i++) {
+            $(removeButtons[i]).click(removeImage);
+        }
+    }    
 });
 
 
-var editing = false;
+var removeImage = (e) => {
+    var imageCell = $(e.target).closest(".image-cell");
+    var imageId = $(imageCell).attr("imageId");
 
-
-var editClicked = () => {
-
-    var removeBtns = $(".remove-image");
-    var i;
-
-    if (editing) {        
-
-        for (i = 0; i < removeBtns.length; i++) {
-            removeBtns[i].classList.add("invisible");
+    $.ajax({
+        url: "/Form/RemoveImage/" + imageId,
+        success: function (result) {
+            if (result === true) {
+                imageCell.remove();
+            } else {
+                alert("Something went wrong removing the image please try again.");
+            }
         }
-
-        editing = false;
-    } else {           
-        for (i = 0; i < removeBtns.length; i++) {
-            removeBtns[i].classList.remove("invisible");
-        }
-        editing = true;
-    }
+    });
 };

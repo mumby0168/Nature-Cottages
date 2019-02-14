@@ -48,13 +48,15 @@ namespace NatureCottages
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IPasswordProtectionService, PasswordProtectionService>();
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IImageRepository, ImageRepository>();
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            services
+                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
-                    options =>
+                    (options) =>
                     {                        
                         options.LoginPath = "/Account/Login";
-                        options.LogoutPath = "/Account/Logout";
+                        options.LogoutPath = "/Account/Logout";                        
                     });
 
 

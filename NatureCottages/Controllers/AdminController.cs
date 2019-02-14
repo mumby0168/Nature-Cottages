@@ -35,7 +35,6 @@ namespace NatureCottages.Controllers
                     await _bookingRepository.GetAllUnApprovedBookingsWithCustomerAndCottage()
             };
         
-
             return View("Admin", vm);
         }
 

@@ -20,6 +20,7 @@ namespace NatureCottages.Controllers
 
         public async Task<IActionResult> Index()
         {
+            //TODO: refactor the to list.
             var vm = new HomeViewModel();
             var cottages = await _cottageRepository.GetThreeCottages();
             vm.Cottages = cottages.ToList();

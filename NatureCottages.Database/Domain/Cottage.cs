@@ -13,7 +13,7 @@ namespace NatureCottages.Database.Domain
         [DisplayName("Cottage Name")]
         public string Name { get; set; }
 
-        [DisplayName("Cottage Name")]
+        [DisplayName("Cottage Description")]
         public string Description { get; set; }        
 
         [DisplayName("Price Per Night")]

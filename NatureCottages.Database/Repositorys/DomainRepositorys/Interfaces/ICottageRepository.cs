@@ -16,6 +16,8 @@ namespace NatureCottages.Database.Repositorys.DomainRepositorys.Interfaces
 
         Task<int> GetCottageIdFromImageGroupAsync(int id);
 
+        Task<List<Cottage>> GetCottagesVisibleToClientsWithImagesAsync();
+
         Task<IEnumerable<Booking>> GetBookingsForCottageUntilEndOfYear(int year, int id);
     }
 }

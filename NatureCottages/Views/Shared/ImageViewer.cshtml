@@ -1,18 +1,28 @@
-﻿@model NatureCottages.Database.Domain.ImageGroup
+﻿@model NatureCottages.ViewModels.General.ImageViewerViewModel
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+
+
+
+
 <div style="height: 50%;overflow: scroll;" align="center">
     <div style="" class="mdl-grid">
-        @foreach (var image in Model.Images)
+        @foreach (var image in Model.ImageGroup.Images)
         {
-            <div class="mdl-cell mdl-cell--4-col">
-                <div class="mdl-card mdl-shadow--3dp image-viewer-card">
+            <div class="mdl-cell mdl-cell--4-col image-cell" imageId="@image.Id">
+                <div class="image-viewer-card">
                     <img src="@image.ImagePath" class="standard-image"/>
-                    <br/>
-                    @Html.ActionLink("Remove", "RemoveImage", "Form", new { id = Model.Id }, new { @class = "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect remove-image invisible" })                    
+                    
+                    @if (Model.IsEditable)
+                    {
+                        <br/>                          
+                        <button class="mdl-button mdl-button--primary remove-image-button">Remove</button>
+                    }                                      
                 </div>                
             </div>
         }
     </div>
 </div>
+
+<script src="~/js/EditImages.js"></script>

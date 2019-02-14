@@ -20,13 +20,15 @@ namespace NatureCottages.Controllers
         private readonly IAttractionRepository _attractionRepository;
         private readonly ICottageRepository _cottageRepository;
         private readonly IImageGroupRepository _imageGroupRepository;
+        private readonly IImageRepository _imageRepository;
 
 
-        public FormController(IAttractionRepository attractionRepository, ICottageRepository cottageRepository, IImageGroupRepository imageGroupRepository)
+        public FormController(IAttractionRepository attractionRepository, ICottageRepository cottageRepository, IImageGroupRepository imageGroupRepository, IImageRepository imageRepository)
         {
             _attractionRepository = attractionRepository;
             _cottageRepository = cottageRepository;
             _imageGroupRepository = imageGroupRepository;
+            _imageRepository = imageRepository;
         }
 
         [Route("Form/LoadAttractionForm")]
@@ -42,9 +44,21 @@ namespace NatureCottages.Controllers
         }
 
         [Route("Form/RemoveImage/{id}")]
-        public IActionResult RemoveImage(int id)
+        public async Task<bool> RemoveImage(int id)
         {
-            return null;
+            try
+            {
+
+                var image = await _imageRepository.GetAsync(id);
+                await _imageRepository.RemoveAysnc(image);
+                await _imageRepository.SaveAsync();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            return true;
         }
         
         [Route("Form/LoadCottageForm")]
@@ -56,6 +70,7 @@ namespace NatureCottages.Controllers
         [Route("Form/LoadCottageEditForm/{cottid}")]
         public async Task<IActionResult> LoadCottageEditForm(int cottid)
         {
+            //TODO: Refactor.
             var cottage = await _cottageRepository.GetCottageWithImagesAsync(cottid);
             var vm = new CottageFormViewModel{Cottage = new Cottage()};
             vm.Cottage = cottage;
@@ -64,12 +79,11 @@ namespace NatureCottages.Controllers
 
         [Route("Form/AddImages/{id}")]
         public async Task<IActionResult> AddImages(List<IFormFile> images ,int id)
-        {
+        {            
             var group = await _imageGroupRepository.GetImageGroupWithImagesAsync(id);            
 
             WriteImages(images);
             
-
             if (group.Images != null)
             {
                 foreach (var formFile in images)
@@ -85,7 +99,7 @@ namespace NatureCottages.Controllers
 
         [HttpPost]
         public async Task<IActionResult> SubmitCottageForm(List<IFormFile> images, CottageFormViewModel vm)
-        {             
+        {                        
             var cottage = new Cottage()
             {
                 Description = vm.Cottage.Description,
@@ -99,11 +113,8 @@ namespace NatureCottages.Controllers
 
             WriteImages(images);
 
-            foreach (var image in images)
-            {               
-                cottage.ImageGroup.Images.Add(new Image(){ImagePath = @"\images\" + image.FileName});
-            }
-
+            AddImages(ref cottage, images);
+                        
             await _cottageRepository.AddAysnc(cottage);
             await _cottageRepository.SaveAsync();
                 
@@ -111,7 +122,7 @@ namespace NatureCottages.Controllers
         }
 
         private async void WriteImages(List<IFormFile> images)
-        {
+        {            
             string path = Directory.GetCurrentDirectory() + @"\wwwroot\images\";
             foreach (var image in images)
             {
@@ -120,6 +131,11 @@ namespace NatureCottages.Controllers
                     await image.CopyToAsync(stream);
                 }
             }           
+        }
+
+        private void AddImages(ref Cottage cottage, List<IFormFile> images)
+        {
+            foreach (var i in images) cottage.ImageGroup.Images.Add(new Image() { ImagePath = @"\images\" + i.FileName });
         }
 
     }
