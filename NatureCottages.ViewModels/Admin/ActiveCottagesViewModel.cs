@@ -7,6 +7,6 @@ namespace NatureCottages.ViewModels.Admin
 {
     public class ActiveCottagesViewModel
     {
-        public List<Cottage> Cottages { get; set; }
+        public List<Cottage> Cottages { get; set; }        
     }
 }

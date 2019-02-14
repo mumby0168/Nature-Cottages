@@ -20,7 +20,7 @@
 
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         @Html.LabelFor(m => Model.Password, new { @class = "mdl-textfield__label" })
-        @Html.TextBoxFor(m => Model.Password, new { @class = "mdl-textfield__input" })
+        @Html.PasswordFor(m => Model.Password, new { @class = "mdl-textfield__input" })
         @Html.ValidationMessageFor(m => m.Password)
     </div>
 

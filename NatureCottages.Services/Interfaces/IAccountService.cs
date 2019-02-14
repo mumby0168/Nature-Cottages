@@ -9,8 +9,12 @@ namespace NatureCottages.Services.Interfaces
 {
     public interface IAccountService
     {
-        Task CreateCustomerAccount(CreateAccountViewModel vm);
+        Task CreateAccount(CreateAccountViewModel vm);
 
-        Task<bool> CheckAccount(string username, string password, HttpContext context);
+        Task<bool> ValidateNewAccount(CreateAccountViewModel vm);
+
+        Task<bool> SignIn(string username, string password, HttpContext context);
+
+        Task SignOut(HttpContext context);
     }
 }

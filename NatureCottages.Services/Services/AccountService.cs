@@ -25,20 +25,43 @@ namespace NatureCottages.Services.Services
             _customerRepository = customerRepository;
             _accountRepository = accountRepository;
         }
-        public async Task CreateCustomerAccount(CreateAccountViewModel vm)
+        public async Task CreateAccount(CreateAccountViewModel vm)
         {
             var (password, salt) = _passwordProtectionService.Encrypt(vm.PlainTextPassword);
-            var customer = vm.Customer;
-            customer.Account.Salt = salt;
-            customer.Account.Password = password;
 
-           await _customerRepository.AddAysnc(customer);
-           await _customerRepository.SaveAsync();
+            if (!vm.IsAdmin)
+            {
+                var customer = vm.Customer;
+                customer.Account.Salt = salt;
+                customer.Account.AccountType = AccountTypes.Standard;
+                customer.Account.Password = password;
+                await _customerRepository.AddAysnc(customer);
+                await _customerRepository.SaveAsync();
+                return;
+            }
+
+            var account = vm.Customer.Account;
+            account.AccountType = AccountTypes.Admin;
+            account.Password = password;
+            account.Salt = salt;
+            await _accountRepository.AddAysnc(account);
+            await _accountRepository.SaveAsync();
         }
 
-        public async Task<bool> CheckAccount(string username, string password, HttpContext context)
-        {            
-               
+        public async Task<bool> ValidateNewAccount(CreateAccountViewModel vm)
+        {
+            var account = await _accountRepository.SingleOrDefaultAysnc(c => c.Username == vm.Customer.Account.Username);
+
+            if (vm.PlainTextPassword != vm.ConfirmationPassword) return false;
+
+            if (account != null) return false;
+
+            return true;
+        }
+
+
+        public async Task<bool> SignIn(string username, string password, HttpContext context)
+        {                           
             var account = await _accountRepository.SingleOrDefaultAysnc(a => a.Username == username);
 
             if (account == null) return false;
@@ -47,8 +70,6 @@ namespace NatureCottages.Services.Services
 
             if (passwordMatches)
             {
-                //sign in user
-
                 var claimIdent = new ClaimsIdentity(new List<Claim>()
                 {
                     new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
@@ -57,10 +78,16 @@ namespace NatureCottages.Services.Services
                 }, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdent));
+
                 return true;
             }
 
             return false;
+        }
+
+        public async Task SignOut(HttpContext context)
+        {
+            await context.SignOutAsync();
         }
     }
 }

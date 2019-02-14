@@ -1,0 +1,12 @@
+﻿@model NatureCottages.ViewModels.General.WelcomeViewModel
+@{
+    Layout = "Layout/_Layout";
+}
+
+<div align="center">
+    <h2>Welcome @Model.Username you now have an account.</h2>
+    
+    <p>Please login using the following link. @Html.ActionLink("Login Here.", "LoadLogin", "Account")</p>
+
+</div>
+

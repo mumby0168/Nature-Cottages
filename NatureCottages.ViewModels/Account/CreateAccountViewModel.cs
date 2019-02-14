@@ -18,5 +18,7 @@ namespace NatureCottages.ViewModels.Account
         [Required]
         [DisplayName("Re-enter Password")]
         public string ConfirmationPassword { get; set; }
+
+        public bool IsAdmin { get; set; }
     }
 }

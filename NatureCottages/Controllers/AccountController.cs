@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using NatureCottages.Database.Domain;
 using NatureCottages.Services.Interfaces;
 using NatureCottages.ViewModels.Account;
+using NatureCottages.ViewModels.General;
 
 namespace NatureCottages.Controllers
 {
@@ -19,12 +20,22 @@ namespace NatureCottages.Controllers
         }
 
 
-        [Route("/[controller]/CreateCustomerAccount")]
-        public IActionResult LoadCreateAccount()
+        [Route("/[controller]/CreateAccount")]
+        public IActionResult LoadCreateAccountCustomer()
         {
-            return View("CreateAccount");
+            CreateAccountViewModel vm = new CreateAccountViewModel {IsAdmin = false};
+
+            return View("CreateAccount", vm);
         }
 
+
+        [Route("/[controller]/CreateAdminAccount")]
+        public IActionResult LoadCreateAccountAdmin()
+        {
+            CreateAccountViewModel vm = new CreateAccountViewModel { IsAdmin = true };
+
+            return View("CreateAccount", vm);
+        }
 
         [Route("/[controller]/Login")]
         public IActionResult LoadLogin()
@@ -38,25 +49,29 @@ namespace NatureCottages.Controllers
         //password = dasher
         public async Task<IActionResult> ProcessForm(CreateAccountViewModel createAccountViewModel)
         {
-            if (createAccountViewModel.PlainTextPassword != createAccountViewModel.ConfirmationPassword)
-            {
-                throw new Exception();
-            }
+            bool passed = await _accountService.ValidateNewAccount(createAccountViewModel);
 
-            //TODO: Ensure all validation is complete.
+            if (!passed) throw new Exception();
 
-            await _accountService.CreateCustomerAccount(createAccountViewModel);
+            await _accountService.CreateAccount(createAccountViewModel);
 
-            return View();
+            var vm = new WelcomeViewModel {Username = createAccountViewModel.Customer.Account.Username};
+
+            return View("General/Welcome", vm);
         }
 
         public async Task<IActionResult> LoginCustomer(LoginViewModel vm)
         {            
-            var result = await _accountService.CheckAccount(vm.Username, vm.Password, HttpContext);
-
-            
+            var result = await _accountService.SignIn(vm.Username, vm.Password, HttpContext);
             
             return result ? RedirectToAction("Index", "Home") : RedirectToAction("LoginCustomer");
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _accountService.SignOut(HttpContext);
+
+            return View("Logout");
         }
     }
 }

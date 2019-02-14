@@ -16,5 +16,7 @@ namespace NatureCottages.ViewModels.Availability
         }
         public Booking Booking { get; set; }
 
+        public string Username { get; set; }
+
     }
 }

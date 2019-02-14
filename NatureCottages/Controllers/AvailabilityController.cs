@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NatureCottages.Database.Domain;
 using NatureCottages.Database.Repositorys.DomainRepositorys.Interfaces;
@@ -29,16 +32,23 @@ namespace NatureCottages.Controllers
             return View("Availability", vm);
         }
 
+        [Authorize(Roles = "Admin, Standard")]
         public async Task<IActionResult> LoadEnquirePage(int cottageid)
-        {
+        {            
             var vm = new EnquireFormViewModel();
             vm.Booking.Cottage = await _cottageRepository.GetCottageWithImagesAsync(cottageid);
             vm.Booking.CottageId = vm.Booking.Cottage.Id;
+            var usernameClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
+
+            vm.Username = usernameClaim?.Value;
+
+
 
             return View("_EnquirePage", vm);
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Standard")]
         public async Task<IActionResult> Enquire(Booking booking)
         {
             booking.IsPendingApproval = true;

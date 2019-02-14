@@ -54,7 +54,7 @@ namespace NatureCottages
                     options =>
                     {                        
                         options.LoginPath = "/Account/Login";
-                        options.LogoutPath = "";
+                        options.LogoutPath = "/Account/Logout";
                     });
 
 

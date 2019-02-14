@@ -37,7 +37,7 @@
 
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             @Html.LabelFor(m => Model.PlainTextPassword, new { @class = "mdl-textfield__label" })
-            @Html.TextBoxFor(m => Model.PlainTextPassword, new { @class = "mdl-textfield__input" })
+            @Html.PasswordFor(m => Model.PlainTextPassword, new { @class = "mdl-textfield__input" })
             @Html.ValidationMessageFor(m => m.PlainTextPassword)
         </div>
 
@@ -45,7 +45,7 @@
 
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             @Html.LabelFor(m => Model.ConfirmationPassword, new { @class = "mdl-textfield__label" })
-            @Html.TextBoxFor(m => Model.ConfirmationPassword, new { @class = "mdl-textfield__input" })
+            @Html.PasswordFor(m => Model.ConfirmationPassword, new { @class = "mdl-textfield__input" })
             @Html.ValidationMessageFor(m => m.ConfirmationPassword)
         </div>
 
