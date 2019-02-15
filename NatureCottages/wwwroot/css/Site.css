@@ -2,9 +2,8 @@
 
 .card-img {
     width: 100%;
-    height: 100%;
-    display: none;
-    object-fit: scale-down;
+    height: 80%;
+    display: none;   
 }
 
 
@@ -100,11 +99,13 @@ footer {
 .cottage-card {
     border-radius: 5px;
     width: 80%;
+    height: 100%;
     text-align: left;
 }
 
 .attraction-card {
     width: 80%;
+    height: 70%;
 }
 
 
