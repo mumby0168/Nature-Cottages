@@ -35,10 +35,10 @@ namespace NatureCottages.Controllers
         }
 
         [Route("/[controller]/Login")]
-        public IActionResult LoadLogin()
+        public IActionResult LoadLogin(string returnUrl)
         {
-            
-            return View("Login");
+            var vm = new LoginViewModel() {ReturnRoute = returnUrl};
+            return View("Login", vm);
         }
 
         //TEST ACCOUNT:
@@ -60,6 +60,11 @@ namespace NatureCottages.Controllers
         public async Task<IActionResult> LoginCustomer(LoginViewModel vm)
         {            
             var result = await _accountService.SignIn(vm.Username, vm.Password, HttpContext);
+
+            if (result && vm.ReturnRoute != null)
+            {
+                return Redirect(vm.ReturnRoute);
+            }
             
             return result ? RedirectToAction("Index", "Home") : RedirectToAction("LoginCustomer");
         }

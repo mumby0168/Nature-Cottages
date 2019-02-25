@@ -53,7 +53,7 @@ namespace NatureCottages.Database.Repositorys.DomainRepositorys
 
         public async Task<IEnumerable<Booking>> GetBookingsForCottageUntilEndOfYear(int year, int id)
         {
-            var cottage = await Task.Run(() => Context.Cottages.Include(c => c.Bookings).FirstOrDefault(c => c.Id == id));
+            var cottage = await Task.Run(() => Context.Cottages.Include(c => c.Bookings).FirstOrDefault(c => c.Id == id));            
 
             var bookings = new List<Booking>();
 

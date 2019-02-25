@@ -11,5 +11,7 @@ namespace NatureCottages.Database.Repositorys.DomainRepositorys.Interfaces
     {
         Task<List<Booking>> GetAllUnApprovedBookingsWithCustomerAndCottage();
 
+        Task<List<Booking>> GetBookingsForCottageInFutureByIdAsync(int cottageId);
+
     }
 }

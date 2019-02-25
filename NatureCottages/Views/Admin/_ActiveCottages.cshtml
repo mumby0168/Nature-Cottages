@@ -19,8 +19,8 @@
         </caption>
         <thead>
         <tr>
-            <th style="width: 10%;">Cotttage Name</th>
-            <th style="width: 10%;">Cottage Images</th>
+            <th style="width: 10%;">Cottage Name</th>
+            <th style="width: 10%;">Cottage Description </th>
             <th style="width: 5%;">Operations</th>
         </tr>
         </thead>
@@ -29,10 +29,10 @@
         {
             <tr>
                 <td>
-                    @cot.Name
+                    <p> @cot.Name</p>
                 </td>
                 <td>
-                    <button class="mdl-button--accent mdl-button--raised mdl-button">View Images</button>
+                    <p> @cot.Description</p>
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "LoadCottageEditForm", "Form", new { cottid = cot.Id }, new { @class = "mdl-button--accent mdl-button--raised mdl-button" })                   

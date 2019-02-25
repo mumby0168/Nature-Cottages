@@ -25,6 +25,8 @@ namespace NatureCottages.Controllers
             _cottageRepository = cottageRepository;
             _mailServerService = mailServerService;
         }
+
+        [Route("/Admin/Home")]
         public async Task<IActionResult> Index()
         {
             var vm = new AdminViewModel();

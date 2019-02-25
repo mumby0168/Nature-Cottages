@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using NatureCottages.Database.Domain;
 using NatureCottages.Services.Interfaces;
+using NatureCottages.ViewModels.Availability;
 using NatureCottages.ViewModels.Models;
 
 namespace NatureCottages.Services.Services
@@ -30,6 +33,35 @@ namespace NatureCottages.Services.Services
             {                                
                 yield return new Month(){Name = i.Key, NumberOfDays = DateTime.DaysInMonth(year, i.Value), Number = i.Value, Year = year};
             }
+        }
+
+        public List<DayInMonth> GetDaysBookedInMonths(int month, int daysInMonth, List<Booking> bookings)
+        {
+            var bookingsInMonth = bookings.Where(b => b.DateTo.Month == month || b.DateFrom.Month == month);
+
+            var days = new List<DayInMonth>();
+
+            for(int i = 1 ; i < daysInMonth + 1; i++)
+                days.Add(new DayInMonth(){Day = i});
+
+            foreach (var booking in bookingsInMonth)
+            {
+                TimeSpan timeSpan = booking.DateTo - booking.DateFrom;
+
+                int start = booking.DateFrom.Day;
+
+                int count = timeSpan.Days + start;
+
+                if (count > daysInMonth)
+                    count = daysInMonth;
+
+                for (int i = start; i < count; i++)
+                {
+                    days[i].IsBooked = true;
+                }
+            }
+
+            return days;
         }
     }
 }

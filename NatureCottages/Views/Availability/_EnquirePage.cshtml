@@ -65,6 +65,9 @@
                     </div>
                 </div>
             </div>
+            
+            <button id="ShowCalendar" class="mdl-button">Show Calendar</button>
+            
 
             <div class="mdl-cell mdl-cell--12-col">
                 @await Html.PartialAsync("AvailabilityViewer", new AvailabilityViewerViewModel(){Cottage = Model.Booking.Cottage})
@@ -72,8 +75,11 @@
 
         </div>
     </div>
+    
+    <div id="CalendarArea"></div>
 </div>
 
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js"></script>
+<script src="~/js/CalendarHandler.js"></script>

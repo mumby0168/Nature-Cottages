@@ -89,6 +89,10 @@
     object-fit: fill;
 }
 
+.card-imager-wrapper-div {
+    height: 100%; width: 100%;
+}
+
 main {
     height: 90%;    
 }
@@ -132,3 +136,46 @@ footer {
     padding: 3%;
 }
 
+#calendar-holder {
+    width: 100%;
+    margin-bottom: 5%;
+}
+
+.unbooked-date {
+    
+}
+
+.calendar-cell {
+    height: 100%;
+    width: 100%;
+}
+
+.booked-date {
+    opacity: 0.5;    
+}
+
+.standard-date {
+    text-align: center;
+}
+
+.calendar-text-center {
+    text-align: center;
+}
+
+.arrow-link {
+    color: black;
+}
+
+.arrow-link:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.calendar-arrow-div:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+#CalendarArea {
+    width: 80%;
+}

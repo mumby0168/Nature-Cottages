@@ -118,7 +118,7 @@ namespace NatureCottages.Controllers
             await _cottageRepository.AddAysnc(cottage);
             await _cottageRepository.SaveAsync();
                 
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("Index", "Admin");            
         }
 
         private async void WriteImages(List<IFormFile> images)

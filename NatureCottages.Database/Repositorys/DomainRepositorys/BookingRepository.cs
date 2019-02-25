@@ -25,5 +25,10 @@ namespace NatureCottages.Database.Repositorys.DomainRepositorys
 
             return new List<Booking>(bookings);
         }
+
+        public async Task<List<Booking>> GetBookingsForCottageInFutureByIdAsync(int cottageId)
+        {
+            return null;
+        }
     }
 }

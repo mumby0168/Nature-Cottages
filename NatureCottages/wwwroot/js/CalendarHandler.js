@@ -1,56 +1,69 @@
-﻿var dateNow = new Date();
-var year = dateNow.getFullYear();
+﻿
+var calendarArea;
+var cottageId;
 
-$(document).ready(() => {       
-    getMonthsForYear(year);
-    getBookingsForYearFromCottage();
+var date;
+
+var month;
+var year;
+
+
+
+$(document).ready(() => {
+
+    date = new Date();
+
+    month = date.getMonth() + 1;
+    year = date.getFullYear();
+
+
+    calendarArea = $("#CalendarArea");
+    cottageId = $("#Booking_CottageId").attr("value");
+    $(calendarArea).hide();
+    loadCalendar();
+    $("#ShowCalendar").click(showCalendar);
 });
 
 
-var getMonthsForYear = (year) => {
+
+var loadCalendar = () => {
     $.ajax({
-        url: "Calendar/GetMonthsForYear/" + year,
-        success: function (months) {
-
-            //RETURNS 1 LESS THAN ACTUAL SO ADD 1.
-            var monthNumber = dateNow.getMonth() + 1;
-
-            var month = getMonthFromCollection(months, monthNumber);            
-        },
-        error: function (error, type, errorMessage) {
-            console.log(error);            
-        }
+        url: "/Calendar/Load",
+        data: {month: month, year: year, cottageId: cottageId},
+        success: function(html) {
+            $(calendarArea).html(html);   
+            $("#CalendarForward").click(monthForward);
+            $("#CalendarBack").click(monthBack);
+        } 
     });
+
 };
 
-var getMonthFromCollection = (months, month) => {
-    var i;
+var monthForward = () => {
 
-    for (i = 0; i < months.length; i++) {
-        if (months[i].number === month)
-            return months[i];
+    month++;
+
+    if (month > 12) {
+        month = 1;
+        year += 1;
     }
+    console.log(month + "," + year);
 
-    return null;
+    loadCalendar();
+
 };
 
-var getBookingsForYearFromCottage = () => {
-    var table = $("#CalendarTable");
+var monthBack = () => {
 
-    var cottageId = $(table).attr("cottageId");
-
-    
-
-    //TODO: Remove and think of a way to only render script on single page.
-    if (cottageId !== undefined) {
-        $.ajax({
-            url: "Calendar/GetBookingsForCottageUntilEndOfYear/" + year + "/" + cottageId,
-            success: function (bookings) {
-                console.log(bookings);
-            },
-            error: function(error, type, errorMessage) {
-                console.log(error);
-            }
-        });
+    month--;
+    if (month < 1) {
+        month = 12;
+        year -= 1;
     }
+    console.log(month + "," + year);
+    loadCalendar();
+};
+
+var showCalendar = () => {
+    $(calendarArea).show();    
 };

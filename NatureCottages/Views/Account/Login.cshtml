@@ -1,4 +1,5 @@
-﻿@model NatureCottages.ViewModels.Account.LoginViewModel
+﻿@using System.Diagnostics
+@model NatureCottages.ViewModels.Account.LoginViewModel
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -6,6 +7,7 @@
 @{
     Layout = "Layout/_Layout";
 }
+
 
 
 @using (Html.BeginForm("LoginCustomer", "Account"))
@@ -23,6 +25,8 @@
         @Html.PasswordFor(m => Model.Password, new { @class = "mdl-textfield__input" })
         @Html.ValidationMessageFor(m => m.Password)
     </div>
+
+    @Html.HiddenFor(h => h.ReturnRoute);
 
     <input type="submit" class="mdl-button mdl-button--colored" />
 }
