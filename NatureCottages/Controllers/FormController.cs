@@ -57,6 +57,7 @@ namespace NatureCottages.Controllers
             }
             catch (Exception e)
             {
+                Debug.WriteLine(e.Message);
                 return false;
             }
 

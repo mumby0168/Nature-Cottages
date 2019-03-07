@@ -9,9 +9,9 @@ namespace NatureCottages.Database.Repositorys.DomainRepositorys.Interfaces
 {
     public interface IBookingRepository : IRepository<Booking>, IRepositoryAsync<Booking>
     {
-        Task<List<Booking>> GetAllUnApprovedBookingsWithCustomerAndCottage();
+        Task<List<Booking>> GetAllUnApprovedBookingsWithCustomerAndCottage();        
 
-        Task<List<Booking>> GetBookingsForCottageInFutureByIdAsync(int cottageId);
+        Task<Booking> GetBookingWithCustomerAndCottage(int bookingId);
 
     }
 }

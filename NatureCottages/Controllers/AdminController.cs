@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Security;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -62,16 +64,32 @@ namespace NatureCottages.Controllers
             return View("_BookingRequests", vm);
         }
 
-        public async Task<IActionResult> ProcessBookingRequestDecision(bool isAccepted)
+        public async Task<IActionResult> ProcessBookingRequestDecision(bool isAccepted, int bookingId)
         {
+
+            _mailServerService.ConfigureMailServer(new NetworkCredential("liziogitescottages@gmail.com", "Lizio123"), 587, "smtp.gmail.com", "liziogitescottages@gmail.com");
+
+            var booking = await _bookingRepository.GetBookingWithCustomerAndCottage(bookingId);
+
             if (isAccepted)
             {
-                //send accepted email.
+                _mailServerService.SendMessage("Booking Confirmation", $"Hi {booking.Customer.FullName},\n\n" +
+               $"I am glad to inform you that your booking commencing on the {booking.DateFrom.Date} until {booking.DateTo.Date} has been accepted by the cottage managers.\n\n" +
+               $"Please feel free to contact the managers for any many questions. We look forward to seeing you.\n\n" +
+               $"Regards,\n\nLizio Gites Cottage Team.", booking.Customer.Account.Username);
             }
             else
             {
                 //send rejected email.
+                _mailServerService.SendMessage("Booking Rejection", $"Hi {booking.Customer.FullName},\n\n" +
+                $"I am sorry to inform you that your booking commencing on the {booking.DateFrom.Date} until {booking.DateTo.Date} has been reject by the cottage managers.\n\n" +
+                    $"Please feel free to contact the managers for any many questions.\n\n" +
+                    $"Regards,\n\nLizio Gites Cottage Team.", booking.Customer.Account.Username);
             }
+
+            //change booking status
+            booking.IsPendingApproval = false;
+            await _bookingRepository.SaveAsync();
 
             return await LoadBookingRequests();
         }
