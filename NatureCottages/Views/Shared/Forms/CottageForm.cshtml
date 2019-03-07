@@ -11,7 +11,7 @@
 
     <h3>Add Cottage</h3>
 
-    <form method="post" enctype="multipart/form-data" action="/Form/SubmitCottageForm" method="post">
+    <form method="post" enctype="multipart/form-data" action="/Form/SubmitCottageForm" method="post" style="width: 50%;">
 
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             @Html.LabelFor(m => Model.Cottage.Name, new { @class = "mdl-textfield__label" })
@@ -34,16 +34,15 @@
             @Html.TextAreaFor(m => m.Cottage.Description, new { @class = "mdl-textfield__input" })
             @Html.ValidationMessageFor(m => m.Cottage.Description)
         </div>
-        
-        <br/>
-        
-            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="Cottage.IsVisibleToClient">
-                @Html.CheckBoxFor(m => m.Cottage.IsVisibleToClient, new { @class = "mdl-checkbox__input" })
-                <span class="mdl-checkbox__label">Visible To Client?</span>
-            </label>
-                
-     
 
+
+
+        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="Cottage_IsVisibleToClient">
+            @Html.CheckBoxFor(m => m.Cottage.IsVisibleToClient, new { @class = "mdl-checkbox__input" })
+            <span class="mdl-checkbox__label">Visible To Client?</span>
+        </label>
+
+        <br />
         <br />
 
         <div class="">

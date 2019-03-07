@@ -1,17 +1,56 @@
-﻿@model NatureCottages.Database.Domain.Attraction
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{ 
+﻿@model NatureCottages.ViewModels.Forms.AttractionFormViewModel
+
+@{
     Layout = "Layout/_Layout";
 }
-<h3>Add Attraction</h3>
 
-@using (Html.BeginForm("", "", FormMethod.Post))
-{
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        @Html.LabelFor(m => Model.Name, new { @class = "mdl-textfield__label" })
-        @Html.TextBoxFor(m => Model.Name, new { @class = "mdl-textfield__input" })
-        @Html.ValidationMessageFor(m => m.Name)
-    </div>
-}
+<div align="center" style="margin: 5%;">
+
+    <h3>Add Cottage</h3>
+
+    <form method="post" enctype="multipart/form-data" action="/Form/SubmitAttractionForm" method="post">
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            @Html.LabelFor(m => Model.Attraction.Name, new { @class = "mdl-textfield__label" })
+            @Html.TextBoxFor(m => Model.Attraction.Name, new { @class = "mdl-textfield__input" })
+            @Html.ValidationMessageFor(m => m.Attraction.Name)
+        </div>
+
+        <br />
+        
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            @Html.LabelFor(m => Model.Attraction.Link, new { @class = "mdl-textfield__label" })
+            @Html.TextBoxFor(m => Model.Attraction.Link, new { @class = "mdl-textfield__input" })
+            @Html.ValidationMessageFor(m => m.Attraction.Link)
+        </div>
+      
+        <br />
+
+        <div class="mdl-js-textfield mdl-textfield mdl-textfield--floating-label">
+            @Html.LabelFor(m => m.Attraction.Description, new { @class = "mdl-textfield__label" })
+        @Html.TextAreaFor(m => m.Attraction.Description, new { @class = "mdl-textfield__input" })
+        @Html.ValidationMessageFor(m => m.Attraction.Description)
+        
+        <br/>
+        
+        </div>
+        
+        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="Attraction_IsVisibleToClient">
+            @Html.CheckBoxFor(m => m.Attraction.IsVisibleToClient, new { @class = "mdl-checkbox__input" })
+            <span class="mdl-checkbox__label">Visible To Client?</span>
+        </label>
+                
+     
+        <br/>
+        <br />
+            
+        <div class="">
+            <input name="images" type="file" multiple accept=".png,.jpeg,.jpg" />
+        </div>
+
+        <input type="submit" />
+
+        <br />
+    </form>
+
+</div>

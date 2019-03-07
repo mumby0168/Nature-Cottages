@@ -36,13 +36,18 @@ namespace NatureCottages.Controllers
         [Route("Form/LoadAttractionForm")]
         public IActionResult LoadAttractionForm()
         {
-            return View("Forms/_AttractionForm", new Attraction());
+            return View("Forms/_AttractionForm", new AttractionFormViewModel());
         }
 
         public IActionResult LoadAttractionForm(int attid)
         {
             var attraction = _attractionRepository.Get(attid);
-            return View("Forms/_AttractionForm", attraction);
+            return View("Forms/_AttractionForm", new AttractionFormViewModel(){Attraction = attraction});
+        }
+
+        public Task<IActionResult> SubmitAttractionForm(AttractionFormViewModel vm)
+        {
+            return null;
         }
 
         [Route("Form/RemoveImage/{id}")]
