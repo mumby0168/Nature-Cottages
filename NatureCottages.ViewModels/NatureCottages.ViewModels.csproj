@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Contact\" />
-    <Folder Include="LocalArea\" />
   </ItemGroup>
 
   <ItemGroup>

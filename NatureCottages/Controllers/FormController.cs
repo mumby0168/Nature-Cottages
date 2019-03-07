@@ -21,14 +21,16 @@ namespace NatureCottages.Controllers
         private readonly ICottageRepository _cottageRepository;
         private readonly IImageGroupRepository _imageGroupRepository;
         private readonly IImageRepository _imageRepository;
+        private readonly IFacebookPostRepository _facebookPostRepository;
 
 
-        public FormController(IAttractionRepository attractionRepository, ICottageRepository cottageRepository, IImageGroupRepository imageGroupRepository, IImageRepository imageRepository)
+        public FormController(IAttractionRepository attractionRepository, ICottageRepository cottageRepository, IImageGroupRepository imageGroupRepository, IImageRepository imageRepository, IFacebookPostRepository facebookPostRepository)
         {
             _attractionRepository = attractionRepository;
             _cottageRepository = cottageRepository;
             _imageGroupRepository = imageGroupRepository;
             _imageRepository = imageRepository;
+            _facebookPostRepository = facebookPostRepository;
         }
 
         [Route("Form/LoadAttractionForm")]
@@ -119,6 +121,15 @@ namespace NatureCottages.Controllers
             await _cottageRepository.SaveAsync();
                 
             return RedirectToAction("Index", "Admin");            
+        }
+        
+
+        public async Task<IActionResult> ProcessFacebookPostForm(FacebookPost facebookPost)
+        {
+            await _facebookPostRepository.AddAysnc(facebookPost);
+            await _facebookPostRepository.SaveAsync();
+
+            return RedirectToAction("LoadFacebookManagement", "Admin");
         }
 
         private async void WriteImages(List<IFormFile> images)

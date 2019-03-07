@@ -11,7 +11,7 @@ namespace NatureCottages.Services.Interfaces
     {
         Task CreateAccount(CreateAccountViewModel vm);
 
-        Task<bool> ValidateNewAccount(CreateAccountViewModel vm);
+        Task<Tuple<bool, List<string>>> ValidateNewAccount(CreateAccountViewModel vm);
 
         Task<bool> SignIn(string username, string password, HttpContext context);
 

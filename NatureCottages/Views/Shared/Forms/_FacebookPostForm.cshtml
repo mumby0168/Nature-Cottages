@@ -1,0 +1,32 @@
+﻿@model NatureCottages.Database.Domain.FacebookPost
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<div align="center" style="width: 50%;">
+
+    <h2>Add a post</h2>
+
+
+    @using (@Html.BeginForm("ProcessFacebookPostForm", "Form"))
+    {
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            @Html.LabelFor(m => Model.PostUrl, new { @class = "mdl-textfield__label" })
+            @Html.TextBoxFor(m => Model.PostUrl, new { @class = "mdl-textfield__input" })
+            @Html.ValidationMessageFor(m => m.PostUrl)
+        </div>
+
+        <br />
+
+        <input type="submit" class="mdl-button mdl-button--raised" />
+
+    }
+    <br />
+
+    <p style="width: 50%;">
+        In order to add a post please find a link from a post marked "public" on facebook then copy and paste the url for the post.
+        Finally click submit and the post will be visible to clients.
+    </p>
+
+</div>

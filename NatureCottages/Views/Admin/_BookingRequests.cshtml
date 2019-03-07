@@ -28,9 +28,9 @@
                     @booking.Cottage.Name
                 </td>
                 <td>
-                    <div>                        
-                        @Html.ActionLink("Accept", "ProcessBookingRequestDecision", "Admin", new {isAccepted = true},  new {@class = "mdl-button--raised mdl-button mdl-button--colored" })
-                        <button class="mdl-button--raised mdl-button" style="background: #B00020; color: white;">Decline</button>
+                    <div>
+                        @Html.ActionLink("Accept", "ProcessBookingRequestDecision", "Admin", new { isAccepted = true }, new { @class = "mdl-button--raised mdl-button mdl-button--colored" })
+                        @Html.ActionLink("Reject", "ProcessBookingRequestDecision", "Admin", new { isAccepted = false }, new { @class = "mdl-button--raised mdl-button mdl-button--colored", @style = "background: red;" })
                     </div>
                 </td>
             </tr>

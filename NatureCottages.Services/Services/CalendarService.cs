@@ -48,14 +48,14 @@ namespace NatureCottages.Services.Services
             {
                 TimeSpan timeSpan = booking.DateTo - booking.DateFrom;
 
-                int start = booking.DateFrom.Day;
+                int start = booking.DateFrom.Day - 1;
 
                 int count = timeSpan.Days + start;
 
                 if (count > daysInMonth)
                     count = daysInMonth;
 
-                for (int i = start; i < count; i++)
+                for (int i = start; i <= count; i++)
                 {
                     days[i].IsBooked = true;
                 }

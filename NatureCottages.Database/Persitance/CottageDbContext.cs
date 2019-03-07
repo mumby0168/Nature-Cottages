@@ -12,6 +12,7 @@ namespace NatureCottages.Database.Persitance
         {
             
         }
+
         public DbSet<Booking> Bookings { get; set; }
 
         public DbSet<Attraction> Attractions { get; set; }
@@ -21,5 +22,8 @@ namespace NatureCottages.Database.Persitance
         public DbSet<Customer> Customers { get; set; }
 
         public DbSet<ImageGroup> ImageGroups { get; set; }
+
+        public DbSet<FacebookPost> FacebookPosts { get; set; }
+        
     }
 }

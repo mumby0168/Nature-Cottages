@@ -14,7 +14,7 @@ namespace NatureCottages.Database.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("NatureCottages.Database.Domain.Account", b =>
@@ -28,7 +28,8 @@ namespace NatureCottages.Database.Migrations
 
                     b.Property<byte[]>("Salt");
 
-                    b.Property<string>("Username");
+                    b.Property<string>("Username")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -40,15 +41,18 @@ namespace NatureCottages.Database.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired();
 
                     b.Property<int>("ImageGroupId");
 
                     b.Property<bool>("IsVisibleToClient");
 
-                    b.Property<string>("Link");
+                    b.Property<string>("Link")
+                        .IsRequired();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -88,13 +92,15 @@ namespace NatureCottages.Database.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasMaxLength(300);
 
                     b.Property<int>("ImageGroupId");
 
                     b.Property<bool>("IsVisibleToClient");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<double>("PricePerNight");
 
@@ -123,6 +129,18 @@ namespace NatureCottages.Database.Migrations
                     b.HasIndex("AccountId");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("NatureCottages.Database.Domain.FacebookPost", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("PostUrl");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FacebookPosts");
                 });
 
             modelBuilder.Entity("NatureCottages.Database.Domain.Image", b =>

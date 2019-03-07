@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace NatureCottages.Database.Domain
@@ -24,10 +25,12 @@ namespace NatureCottages.Database.Domain
 
         public double TotalPrice { get; set; }
 
+        [ForeignKey("CustomerId")]
         public Customer Customer { get; set; }
-
+        
         public int CustomerId { get; set; }
 
+        [ForeignKey("CottageId")]
         public Cottage Cottage { get; set; }
 
         public int CottageId { get; set; }

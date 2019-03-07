@@ -83,6 +83,10 @@
 
 }
 
+#ActiveCottagesTable {
+    width: 80%;
+}
+
 .standard-image {
     width: 100%;
     height: 100%;
@@ -178,4 +182,31 @@ footer {
 
 #CalendarArea {
     width: 80%;
+}
+
+.center-vetical-horizontal-outer {
+    display: flex; justify-content: center; height: 100%;
+}
+
+.center-vetical-horizontal-inner {
+    align-self: center;    
+}
+
+
+.login-form-wrapper {
+    width: 100%;
+    -ms-border-radius: 10px;
+    border-radius: 10px;
+    margin-bottom: 10%;
+    padding: 15%;
+}
+
+.login-form-button-wrapper {
+    width: 100%;
+       
+}
+
+.facebook-post-wrapper {
+    height: 85%;
+    overflow: scroll;
 }

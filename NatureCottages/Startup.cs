@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using NatureCottages.App;
 using NatureCottages.Database;
 using NatureCottages.Database.Domain;
 using NatureCottages.Database.Persitance;
@@ -44,11 +45,15 @@ namespace NatureCottages
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IImageGroupRepository, ImageGroupRepository>();
             services.AddScoped<IMailServerService, MailServersService>();
+            services.AddScoped<IDateCheckerService, DateCheckerService>();
             services.AddScoped<ICalendarService, CalendarService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IFacebookPostRepository, FacebookPostRepository>();
             services.AddScoped<IPasswordProtectionService, PasswordProtectionService>();
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddScoped<INullStringModelChecker, NullStringModelChecker>();
+            services.AddSingleton<IUser, App.User>();
 
             services
                 .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

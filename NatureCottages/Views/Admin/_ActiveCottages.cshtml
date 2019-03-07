@@ -31,11 +31,20 @@
                 <td>
                     <p> @cot.Name</p>
                 </td>
-                <td>
-                    <p> @cot.Description</p>
+                <td style="overflow:scroll; max-width: 300px;">
+                    <p > @cot.Description</p>
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "LoadCottageEditForm", "Form", new { cottid = cot.Id }, new { @class = "mdl-button--accent mdl-button--raised mdl-button" })                   
+                    @Html.ActionLink("Edit", "LoadCottageEditForm", "Form", new { cottid = cot.Id }, new { @class = "mdl-button--accent mdl-button--raised mdl-button" })
+
+                    @if (@cot.IsVisibleToClient)
+                    {
+                        @Html.ActionLink("Hide from Clients", "MakeCottageNonVisible", "Admin", new { cottid = cot.Id }, new { @class = "mdl-button--accent mdl-button--raised mdl-button" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Show to Clients", "MakeCottageVisible", "Admin", new { cottid = cot.Id }, new { @class = "mdl-button--accent mdl-button--raised mdl-button" })
+                    }
                 </td>
             </tr>
         }

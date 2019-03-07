@@ -18,10 +18,13 @@ namespace NatureCottages.Database.Repositorys.DomainRepositorys
         }
 
 
-        public async Task<IEnumerable<Cottage>> GetThreeCottages()
+        public async Task<IEnumerable<Cottage>> GetThreeVisibleCottages()
         {
-            var list = await GetCottagesWithImagesAsync();
-            return list.Take(3).ToList();
+            var list = await GetCottagesVisibleToClientsWithImagesAsync();
+            if (list.Count() > 3)
+                return list.Take(3).ToList();
+            else
+                return list;
         }
 
         public async Task<IEnumerable<Cottage>> GetCottagesWithImagesAsync()

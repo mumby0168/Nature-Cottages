@@ -3,24 +3,41 @@
 
 }
 
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
 @using NatureCottages.ViewModels.Availability
-@model NatureCottages.ViewModels.Availability.LocalAreaPageViewModel
+@model NatureCottages.ViewModels.LocalArea.LocalAreaViewModel
 
 <div>    
-    <div class="mdl-grid">
-
-        @foreach (var att in Model.Attractions)
-        {
-            <div class="mdl-cell--4-col mdl-cell" align="center">
-                @{
-                    AttractionCardViewModel vm = new AttractionCardViewModel();
-                    vm.Attraction = att;
-                    @await Html.PartialAsync("_AttractionCard", vm)
+    <div class="mdl-grid" style="width: 90%">
+        
+        <div class="mdl-cell mdl-cell--8-col">
+            @foreach (var att in Model.Attractions)
+            {
+                <div class="mdl-cell--6-col mdl-cell" align="center">
+                    @{
+                        AttractionCardViewModel vm = new AttractionCardViewModel();
+                        vm.Attraction = att;
+                        @await Html.PartialAsync("_AttractionCard", vm)
+                    }
+                </div>
+            }
+        </div>
+         
+        <div class="mdl-cell--4-col mdl-cell" align="center">
+            <div class="facebook-post-wrapper">
+                @foreach (var post in Model.FacebookPosts)
+                {
+                   
+                        <div data-href="@post.PostUrl" class="fb-post"></div>                    
+                    <br/>
                 }
             </div>
-        }
-    </div>
+        </div>
+
+
+        </div>
+    
+    
 </div>
-
-
 

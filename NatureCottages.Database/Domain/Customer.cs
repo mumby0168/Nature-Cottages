@@ -10,9 +10,13 @@ namespace NatureCottages.Database.Domain
     public class Customer
     {
         public int Id { get; set; }
+
+        [MinLength(5)]
         [DisplayName("Full Name")]
         [Required]
         public string FullName { get; set; }
+
+        [Phone]
         [DisplayName("Phone Number")]
         [Required]
         public string PhoneNumber { get; set; }       

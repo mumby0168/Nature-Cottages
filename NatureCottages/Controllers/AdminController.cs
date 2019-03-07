@@ -18,12 +18,14 @@ namespace NatureCottages.Controllers
         private readonly IBookingRepository _bookingRepository;
         private readonly ICottageRepository _cottageRepository;
         private readonly IMailServerService _mailServerService;
+        private readonly IFacebookPostRepository _facebookPostRepository;
 
-        public AdminController(IBookingRepository bookingRepository, ICottageRepository cottageRepository, IMailServerService mailServerService)
+        public AdminController(IBookingRepository bookingRepository, ICottageRepository cottageRepository, IMailServerService mailServerService, IFacebookPostRepository facebookPostRepository)
         {
             _bookingRepository = bookingRepository;
             _cottageRepository = cottageRepository;
             _mailServerService = mailServerService;
+            _facebookPostRepository = facebookPostRepository;
         }
 
         [Route("/Admin/Home")]
@@ -41,11 +43,13 @@ namespace NatureCottages.Controllers
         }
 
         [Route("Admin/ActiveCottages")]
-        public async Task<IActionResult> LoadActiveCottages()
+        public async Task<IActionResult> LoadAllCottages()
         {
             var vm = new ActiveCottagesViewModel();
 
             vm.Cottages = new List<Cottage>(await _cottageRepository.GetCottagesWithImagesAsync());
+
+            vm.Cottages = vm.Cottages.OrderByDescending(c => c.IsVisibleToClient).ToList();
           
             return View("_ActiveCottages", vm);
         }
@@ -70,6 +74,42 @@ namespace NatureCottages.Controllers
             }
 
             return await LoadBookingRequests();
+        }
+
+        public async Task<IActionResult> MakeCottageNonVisible(int cottid)
+        {
+            var cottage = await _cottageRepository.GetAsync(cottid);
+            cottage.IsVisibleToClient = false;
+            await _cottageRepository.SaveAsync();
+
+            return await LoadAllCottages();
+        }
+
+        public async Task<IActionResult> MakeCottageVisible(int cottid)
+        {
+            var cottage = await _cottageRepository.GetAsync(cottid);
+            cottage.IsVisibleToClient = true;
+            await _cottageRepository.SaveAsync();
+
+            return await LoadAllCottages();
+        }
+
+        public async Task<IActionResult> LoadFacebookManagement()
+        {
+            var vm = new FacebookPostManagementViewModel()
+            {
+                FacebookPosts = (await _facebookPostRepository.GetAllAysnc()).ToList()
+            };
+
+            return View("FacebookPostManagement", vm);
+        }
+
+        public async Task<IActionResult> RemovePost(int id)
+        {
+            var post = await _facebookPostRepository.GetAsync(id);
+            await _facebookPostRepository.RemoveAysnc(post);
+            await _facebookPostRepository.SaveAsync();
+            return await LoadFacebookManagement();
         }
     }
 }

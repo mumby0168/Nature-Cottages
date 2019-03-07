@@ -13,10 +13,13 @@ namespace NatureCottages.ViewModels.Availability
             Booking.Customer = new Customer();
             Booking.DateFrom = DateTime.Now;
             Booking.DateTo = DateTime.Now.AddDays(7);
+            Errors = new List<string>();
         }
         public Booking Booking { get; set; }
 
         public string Username { get; set; }
 
+        public List<string> Errors { get; set; }
+        public int CustomerId { get; set; }
     }
 }

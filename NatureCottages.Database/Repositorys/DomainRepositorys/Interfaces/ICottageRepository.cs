@@ -9,7 +9,7 @@ namespace NatureCottages.Database.Repositorys.DomainRepositorys.Interfaces
 {
     public interface ICottageRepository : IRepository<Cottage>, IRepositoryAsync<Cottage>
     {
-        Task<IEnumerable<Cottage>> GetThreeCottages();
+        Task<IEnumerable<Cottage>> GetThreeVisibleCottages();
 
         Task<IEnumerable<Cottage>> GetCottagesWithImagesAsync();
         Task<Cottage> GetCottageWithImagesAsync(int id);

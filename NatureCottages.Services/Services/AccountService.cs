@@ -10,6 +10,7 @@ using NatureCottages.Database.Domain;
 using NatureCottages.Database.Repositorys.DomainRepositorys.Interfaces;
 using NatureCottages.Services.Interfaces;
 using NatureCottages.ViewModels.Account;
+using Newtonsoft.Json.Serialization;
 
 namespace NatureCottages.Services.Services
 {
@@ -48,15 +49,22 @@ namespace NatureCottages.Services.Services
             await _accountRepository.SaveAsync();
         }
 
-        public async Task<bool> ValidateNewAccount(CreateAccountViewModel vm)
+        public async Task<Tuple<bool, List<string>>> ValidateNewAccount(CreateAccountViewModel vm)
         {
+            var validationMessages = new List<string>();
+
             var account = await _accountRepository.SingleOrDefaultAysnc(c => c.Username == vm.Customer.Account.Username);
 
-            if (vm.PlainTextPassword != vm.ConfirmationPassword) return false;
+            if (vm.PlainTextPassword != vm.ConfirmationPassword) validationMessages.Add("The passwords entered do not match.");
 
-            if (account != null) return false;
+            if (account != null) validationMessages.Add("There is already an account with the username: " + account.Username);  
 
-            return true;
+            if(validationMessages.Count != 0)
+            {
+                return new Tuple<bool, List<string>>(false, validationMessages);
+            }
+
+            return new Tuple<bool, List<string>>(true,validationMessages);
         }
 
 
@@ -68,13 +76,15 @@ namespace NatureCottages.Services.Services
 
             var passwordMatches = _passwordProtectionService.Check(password, account.Password, account.Salt);
 
+            var customer = await _customerRepository.SingleOrDefaultAysnc(c => c.AccountId == account.Id);
+
             if (passwordMatches)
             {
                 var claimIdent = new ClaimsIdentity(new List<Claim>()
                 {
-                    new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, customer.Id.ToString()),
                     new Claim(ClaimTypes.Email, account.Username),
-                    new Claim(ClaimTypes.Role, account.AccountType.ToString())
+                    new Claim(ClaimTypes.Role, account.AccountType.ToString()),                    
                 }, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdent));
@@ -86,7 +96,7 @@ namespace NatureCottages.Services.Services
         }
 
         public async Task SignOut(HttpContext context)
-        {
+        {            
             await context.SignOutAsync();
         }
     }

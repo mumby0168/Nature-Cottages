@@ -9,24 +9,46 @@
 }
 
 
+<div class="center-vetical-horizontal-outer">
+    <div class="center-vetical-horizontal-inner" >
 
-@using (Html.BeginForm("LoginCustomer", "Account"))
-{
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        @Html.LabelFor(m => Model.Username, new { @class = "mdl-textfield__label" })
-        @Html.TextBoxFor(m => Model.Username, new { @class = "mdl-textfield__input" })
-        @Html.ValidationMessageFor(m => m.Username)
+        <div class="mdl-shadow--4dp login-form-wrapper" align="center">
+
+            <i class="fa fa-user-circle fa-7x"></i>
+            <p>Login</p>                       
+
+            @using (Html.BeginForm("LoginCustomer", "Account"))
+            {
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    @Html.LabelFor(m => Model.Username, new {@class = "mdl-textfield__label"})
+                    @Html.TextBoxFor(m => Model.Username, new {@class = "mdl-textfield__input"})
+                    @Html.ValidationMessageFor(m => m.Username)
+                </div>
+
+                <br/>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    @Html.LabelFor(m => Model.Password, new {@class = "mdl-textfield__label"})
+                    @Html.PasswordFor(m => Model.Password, new {@class = "mdl-textfield__input"})
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+
+                @Html.HiddenFor(h => h.ReturnRoute)
+                ;
+
+                <br/>
+                <br/>
+
+                <input type="submit" class="mdl-button mdl-button--accent mdl-button--raised"/>
+            }
+        
+            <hr style="width: 100%;"/>                       
+
+            <div class="login-form-button-wrapper">                
+                @Html.ActionLink("Create Account", "LoadCreateAccountCustomer", "Account", null, new {@class = "mdl-button"})        
+            </div>
+        </div>
     </div>
+</div>
 
-    <br />
-
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        @Html.LabelFor(m => Model.Password, new { @class = "mdl-textfield__label" })
-        @Html.PasswordFor(m => Model.Password, new { @class = "mdl-textfield__input" })
-        @Html.ValidationMessageFor(m => m.Password)
-    </div>
-
-    @Html.HiddenFor(h => h.ReturnRoute);
-
-    <input type="submit" class="mdl-button mdl-button--colored" />
-}
+<script src="~/js/Account.js"></script>

@@ -39,11 +39,24 @@
 
                         <br/>
 
-                        @Html.HiddenFor(m => m.Booking.CottageId)
+                        @Html.HiddenFor(m => Model.Booking.CottageId)
                         <br/>
 
                         <button type="submit" class="mdl-button mdl-button--colored mdl-button--raised">Submit</button>
+
+
+                        <ul style="color: red;">                        
+
+                        @foreach (var error in Model.Errors)
+                         {
+                             <li>@error</li>
+                         }
+                    
+                        </ul>
+
                     }
+                    
+                    
 
                 </div>
 

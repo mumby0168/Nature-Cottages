@@ -1,0 +1,26 @@
+﻿@using NatureCottages.Database.Domain
+@using NatureCottages.ViewModels.Admin
+@model NatureCottages.ViewModels.Admin.FacebookPostManagementViewModel
+@{
+    Layout = "Layout/_Layout";
+}
+
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
+<div align="center">
+    @await Html.PartialAsync("Forms/_FacebookPostForm", new FacebookPost())
+</div>
+
+<div align="center">
+    @foreach (var post in @Model.FacebookPosts)
+    {
+        <div>
+            <div data-href="@post.PostUrl" class="fb-post"></div>
+            <hr />            
+            @Html.ActionLink("Remove", "RemovePost", "Admin", new {id = post.Id}, new {@class = "mdl-button mdl-button--raised"})
+        </div>
+        <br />
+    }
+</div>
+
+<br/>

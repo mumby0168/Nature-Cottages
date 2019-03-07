@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NatureCottages.Database.Domain;
 using NatureCottages.Database.Repositorys.DomainRepositorys.Interfaces;
+using NatureCottages.Services.Interfaces;
 using NatureCottages.ViewModels.Availability;
 
 namespace NatureCottages.Controllers
@@ -17,11 +18,13 @@ namespace NatureCottages.Controllers
     {
         private readonly ICottageRepository _cottageRepository;
         private readonly IBookingRepository _bookingRepository;
+        private readonly IDateCheckerService _dateCheckerService;
 
-        public AvailabilityController(ICottageRepository cottageRepository, IBookingRepository bookingRepository)
+        public AvailabilityController(ICottageRepository cottageRepository, IBookingRepository bookingRepository, IDateCheckerService dateCheckerService)
         {
             _cottageRepository = cottageRepository;
             _bookingRepository = bookingRepository;
+            _dateCheckerService = dateCheckerService;
         }
         public async Task<IActionResult> Index()
         {            
@@ -33,8 +36,8 @@ namespace NatureCottages.Controllers
         }
 
         [Authorize(Roles = "Admin, Standard")]
-        public async Task<IActionResult> LoadEnquirePage(int cottageid)
-        {                                   
+        public async Task<IActionResult> LoadEnquirePage(int cottageid, List<string> errors = null)
+        { 
             var vm = new EnquireFormViewModel
             {
                 Booking =
@@ -44,7 +47,10 @@ namespace NatureCottages.Controllers
                 Username = HttpContext.User.Claims
                     .FirstOrDefault(c => c.Type == ClaimTypes.Email)?
                     .Value
-            };
+            };            
+
+            if (errors != null)
+                vm.Errors = errors;
             
             return View("_EnquirePage", vm);
         }
@@ -52,8 +58,8 @@ namespace NatureCottages.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin, Standard")]
         public async Task<IActionResult> Enquire(Booking booking)
-        {
-            //TODO: Refactor the booking checks
+        {            
+            var errors = new List<string>();
             booking.IsPendingApproval = true;
             if (ModelState.IsValid)
             {
@@ -62,11 +68,22 @@ namespace NatureCottages.Controllers
                     var bookingsOnCottage = await _bookingRepository.FindAysnc(b => b.CottageId == booking.CottageId);
                     var bookingsInFuture = bookingsOnCottage.Where(b => b.DateFrom > DateTime.Now);
 
-                    foreach (var booking1 in bookingsInFuture)
+                    foreach (var futureBooking in bookingsInFuture)
                     {
-                        Debug.WriteLine("booking");
-                    }
+                        if (_dateCheckerService.DoDatesIntercept(booking.DateFrom, booking.DateTo,
+                            futureBooking.DateFrom, futureBooking.DateTo))
+                        {
+                            errors.Add("This cottage is already booked across those dates please check the calendar.");
+                            return await LoadEnquirePage(booking.CottageId,
+                                errors);
+                        }                            
+                    }   
                 }
+
+                int customerId = int.Parse(HttpContext.User.Claims
+                    .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
+
+                booking.CustomerId = customerId;
 
                 await _bookingRepository.AddAysnc(booking);
                 await _bookingRepository.SaveAsync();
@@ -76,14 +93,8 @@ namespace NatureCottages.Controllers
                 return View("Availability", vm);
             }
 
-            booking.Cottage = _cottageRepository.Get(booking.CottageId);
-
-            return View("_EnquirePage", new EnquireFormViewModel()
-            {
-                Booking = booking
-
-            });
-
+            return await LoadEnquirePage(booking.CottageId);
         }
+        
     }
 }

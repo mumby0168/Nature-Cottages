@@ -22,7 +22,7 @@ namespace NatureCottages.Controllers
         {
             //TODO: refactor the to list.
             var vm = new HomeViewModel();
-            var cottages = await _cottageRepository.GetThreeCottages();
+            var cottages = await _cottageRepository.GetThreeVisibleCottages();
             vm.Cottages = cottages.ToList();
 
             return View("Home", vm);
