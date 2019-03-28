@@ -41,7 +41,7 @@
                     @Html.ActionLink("Home", "Index", "Home", new object { }, new { @class = "mdl-navigation__link" })
                     @Html.ActionLink("Availability", "Index", "Availability", new object { }, new { @class = "mdl-navigation__link" })
                     @Html.ActionLink("Contact", "Index", "Contact", new object { }, new { @class = "mdl-navigation__link" })
-                    @Html.ActionLink("Local Area", "Index", "LocalArea", new object { }, new { @class = "mdl-navigation__link" })
+                    @Html.ActionLink("News", "Index", "LocalArea", new object { }, new { @class = "mdl-navigation__link" })
                     
 
                     <button id="demo-menu-lower-left"
@@ -82,11 +82,11 @@
                 @Html.ActionLink("Home", "Index", "Home", new object { }, new { @class = "mdl-navigation__link" })
                 @Html.ActionLink("Availability", "Index", "Availability", new object { }, new { @class = "mdl-navigation__link" })
                 @Html.ActionLink("Contact", "Index", "Contact", new object { }, new { @class = "mdl-navigation__link" })
-                @Html.ActionLink("Local Area", "Index", "LocalArea", new object { }, new { @class = "mdl-navigation__link" })
+                @Html.ActionLink("News", "Index", "LocalArea", new object { }, new { @class = "mdl-navigation__link" })
             </nav>
         </div>
 
-        <main class="mdl-layout__content">
+        <main class="mdl-layout__content" style="height: 100%;">
             @RenderBody()
         </main>
 
