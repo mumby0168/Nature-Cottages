@@ -19,12 +19,14 @@ namespace NatureCottages.Services.Services
         private readonly IPasswordProtectionService _passwordProtectionService;
         private readonly ICustomerRepository _customerRepository;
         private readonly IAccountRepository _accountRepository;
+        private readonly IPasswordResetRepository _passwordResetRepository;
 
-        public AccountService(IPasswordProtectionService passwordProtectionService, ICustomerRepository customerRepository, IAccountRepository accountRepository)
+        public AccountService(IPasswordProtectionService passwordProtectionService, ICustomerRepository customerRepository, IAccountRepository accountRepository, IPasswordResetRepository passwordResetRepository)
         {
             _passwordProtectionService = passwordProtectionService;
             _customerRepository = customerRepository;
             _accountRepository = accountRepository;
+            _passwordResetRepository = passwordResetRepository;
         }
         public async Task CreateAccount(CreateAccountViewModel vm)
         {
@@ -99,5 +101,65 @@ namespace NatureCottages.Services.Services
         {            
             await context.SignOutAsync();
         }
+
+        public async Task<bool> CheckUserPasswordReset(string username)
+        {
+            var user =  await _accountRepository.SingleOrDefaultAysnc(u => u.Username == username);
+
+            return (user != null);
+        }
+
+        public async Task<Guid> InitiatePasswordReset(string username)
+        {
+            var reset = new PasswordReset {Code = Guid.NewGuid(), Email = username, RequestCreated = DateTime.Now};
+
+            await _passwordResetRepository.AddAysnc(reset);
+            await _passwordResetRepository.SaveAsync();
+
+            return reset.Code;
+        }
+
+        public async Task<bool> ResetPassword(string newPassword, string username, Guid code)
+        {
+            if (await CanReset(code))
+            {
+                var account = await _accountRepository.SingleOrDefaultAysnc(a => a.Username == username);
+
+                if (account == null) return false;
+
+                var (password, salt) = _passwordProtectionService.Encrypt(newPassword);
+
+                account.Password = password;
+                account.Salt = salt;
+
+                await _accountRepository.SaveAsync();
+
+                var resetRequest = await _passwordResetRepository.SingleOrDefaultAysnc(r => r.Code == code);
+                await _passwordResetRepository.RemoveAysnc(resetRequest);
+                await _passwordResetRepository.SaveAsync();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> CanReset(Guid code)
+        {
+            var resetRequest = await _passwordResetRepository.SingleOrDefaultAysnc(r => r.Code == code);            
+
+            if (resetRequest != null)
+            {
+                TimeSpan difference = DateTime.Now - resetRequest.RequestCreated;
+
+                if (difference < TimeSpan.FromMinutes(10))
+                {                    
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
     }
 }

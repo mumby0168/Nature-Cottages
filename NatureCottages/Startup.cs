@@ -50,10 +50,11 @@ namespace NatureCottages
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IFacebookPostRepository, FacebookPostRepository>();
             services.AddScoped<IPasswordProtectionService, PasswordProtectionService>();
+            services.AddScoped<IPasswordResetRepository, PasswordResetRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
-            services.AddScoped<INullStringModelChecker, NullStringModelChecker>();
-            services.AddSingleton<IUser, App.User>();
+            services.AddScoped<INullStringModelChecker, NullStringModelChecker>();            
+            services.AddSingleton<IUser, User>();
 
             services
                 .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

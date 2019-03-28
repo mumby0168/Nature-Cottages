@@ -24,6 +24,8 @@ namespace NatureCottages.Database.Persitance
         public DbSet<ImageGroup> ImageGroups { get; set; }
 
         public DbSet<FacebookPost> FacebookPosts { get; set; }
+
+        public DbSet<PasswordReset> PasswordResets { get; set; }
         
     }
 }
