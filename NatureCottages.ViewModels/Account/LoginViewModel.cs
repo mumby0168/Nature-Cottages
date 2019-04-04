@@ -15,5 +15,7 @@ namespace NatureCottages.ViewModels.Account
         public string Password { get; set; }
         
         public string ReturnRoute { get; set; }
+
+        public bool LoginFailed { get; set; }
     }
 }

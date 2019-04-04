@@ -37,9 +37,7 @@ namespace NatureCottages.Controllers
 
             return View("CreateAccount", vm);
         }
-
-        
-
+       
         public async Task<IActionResult> RequestPasswordReset(RequestPasswordResetViewModel vm)
         {
             bool res = await _accountService.CheckUserPasswordReset(vm.Username);
@@ -109,9 +107,9 @@ namespace NatureCottages.Controllers
         }
 
         [Route("/[controller]/Login")]
-        public IActionResult LoadLogin(string returnUrl)
+        public IActionResult LoadLogin(string returnUrl, bool failed = false)
         {
-            var vm = new LoginViewModel() {ReturnRoute = returnUrl};
+            var vm = new LoginViewModel() {ReturnRoute = returnUrl, LoginFailed = failed};
             ModelState.Clear();
             return View("Login", vm);
         }
@@ -129,14 +127,15 @@ namespace NatureCottages.Controllers
 
             await _accountService.CreateAccount(createAccountViewModel);
 
-            var vm = new WelcomeViewModel {Username = createAccountViewModel.Customer.Account.Username};
+            var vm = new WelcomeViewModel {Username = createAccountViewModel.Username};
 
             return View("General/Welcome", vm);
         }
 
         public async Task<IActionResult> LoginCustomer(LoginViewModel vm)
         {            
-            var result = await _accountService.SignIn(vm.Username, vm.Password, HttpContext);            
+            var result = await _accountService.SignIn(vm.Username, vm.Password, HttpContext);
+          
 
             if (result && vm.ReturnRoute != null)
             {
@@ -144,7 +143,7 @@ namespace NatureCottages.Controllers
                 return Redirect(vm.ReturnRoute);
             }
             
-            return result ? RedirectToAction("Index", "Home") : RedirectToAction("LoginCustomer");
+            return result ? RedirectToAction("Index", "Home") : RedirectToAction("LoadLogin", new {returnUrl = vm.ReturnRoute, failed = true});
         }
 
         public async Task<IActionResult> Logout()

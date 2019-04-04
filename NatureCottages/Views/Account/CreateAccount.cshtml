@@ -28,25 +28,25 @@
             @using (Html.BeginForm("ProcessForm", "Account", FormMethod.Post))
             {
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    @Html.LabelFor(m => Model.Customer.FullName, new { @class = "mdl-textfield__label" })
-                    @Html.TextBoxFor(m => Model.Customer.FullName, new { @class = "mdl-textfield__input" })
-                    @Html.ValidationMessageFor(m => m.Customer.FullName)
+                    @Html.LabelFor(m => Model.FullName, new { @class = "mdl-textfield__label" })
+                    @Html.TextBoxFor(m => Model.FullName, new { @class = "mdl-textfield__input" })
+                    @Html.ValidationMessageFor(m => m.FullName)
                 </div>
 
                 <br />
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    @Html.LabelFor(m => Model.Customer.PhoneNumber, new { @class = "mdl-textfield__label" })
-                    @Html.TextBoxFor(m => Model.Customer.PhoneNumber, new { @class = "mdl-textfield__input" })
-                    @Html.ValidationMessageFor(m => m.Customer.PhoneNumber)
+                    @Html.LabelFor(m => Model.PhoneNumber, new { @class = "mdl-textfield__label" })
+                    @Html.TextBoxFor(m => Model.PhoneNumber, new { @class = "mdl-textfield__input" })
+                    @Html.ValidationMessageFor(m => m.PhoneNumber)
                 </div>
 
                 <br />
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    @Html.LabelFor(m => Model.Customer.Account.Username, new { @class = "mdl-textfield__label" })
-                    @Html.TextBoxFor(m => Model.Customer.Account.Username, new { @class = "mdl-textfield__input" })
-                    @Html.ValidationMessageFor(m => m.Customer.Account.Username)
+                    @Html.LabelFor(m => Model.Username, new { @class = "mdl-textfield__label" })
+                    @Html.TextBoxFor(m => Model.Username, new { @class = "mdl-textfield__input" })
+                    @Html.ValidationMessageFor(m => m.Username)
                 </div>
 
                 <br />

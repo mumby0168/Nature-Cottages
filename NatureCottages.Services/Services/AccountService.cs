@@ -34,19 +34,22 @@ namespace NatureCottages.Services.Services
 
             if (!vm.IsAdmin)
             {
-                var customer = vm.Customer;
-                customer.Account.Salt = salt;
-                customer.Account.AccountType = AccountTypes.Standard;
-                customer.Account.Password = password;
+                var customer = new Customer
+                {
+                    FullName = vm.FullName,
+                    PhoneNumber = vm.PhoneNumber,
+                    Account = new Account{Salt = salt, AccountType = AccountTypes.Standard, Password = password, Username = vm.Username}
+                };
                 await _customerRepository.AddAysnc(customer);
                 await _customerRepository.SaveAsync();
                 return;
             }
 
-            var account = vm.Customer.Account;
-            account.AccountType = AccountTypes.Admin;
-            account.Password = password;
-            account.Salt = salt;
+            var account = new Account
+            {
+                Username = vm.Username, AccountType = AccountTypes.Admin, Password = password, Salt = salt
+            };
+
             await _accountRepository.AddAysnc(account);
             await _accountRepository.SaveAsync();
         }
@@ -55,7 +58,7 @@ namespace NatureCottages.Services.Services
         {
             var validationMessages = new List<string>();
 
-            var account = await _accountRepository.SingleOrDefaultAysnc(c => c.Username == vm.Customer.Account.Username);
+            var account = await _accountRepository.SingleOrDefaultAysnc(c => c.Username == vm.Username);
 
             if (vm.PlainTextPassword != vm.ConfirmationPassword) validationMessages.Add("The passwords entered do not match.");
 

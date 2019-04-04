@@ -19,7 +19,9 @@ namespace NatureCottages.Database.Domain
         [Phone]
         [DisplayName("Phone Number")]
         [Required]
-        public string PhoneNumber { get; set; }       
+        public int PhoneNumber { get; set; }       
+
+
         public List<Booking> Bookings { get; set; }
 
         public Account Account { get; set; }
