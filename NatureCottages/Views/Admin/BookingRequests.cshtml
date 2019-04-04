@@ -7,33 +7,50 @@
     Layout = "Layout/_Layout";
 }
 
-<h3>Booking Requests</h3>
+<div class="center-vetical-horizontal-outer">
+    <div align="center" class="center-vetical-horizontal-inner">
 
-<table class="mdl-data-table mdl-shadow--2dp">
-    <thead>
-        <tr>
-            <th>Customer Name</th>
-            <th>Cotttage Name</th>
-            <th>Accept/Decline</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var booking in Model.UnApprovedBookings)
-        {
+    <h3>Booking Requests</h3>
+
+        <table class="mdl-data-table mdl-shadow--2dp">
+            <thead>
             <tr>
-                <td>
-                    @booking.Customer.FullName
-                </td>
-                <td>
-                    @booking.Cottage.Name
-                </td>
-                <td>
-                    <div>
-                        @Html.ActionLink("Accept", "ProcessBookingRequestDecision", "Admin", new { isAccepted = true, bookingId = booking.Id }, new { @class = "mdl-button--raised mdl-button mdl-button--colored" })
-                        @Html.ActionLink("Reject", "ProcessBookingRequestDecision", "Admin", new { isAccepted = false, bookingId = booking.Id }, new { @class = "mdl-button--raised mdl-button mdl-button--colored", @style = "background: red;" })
-                    </div>
-                </td>
+                <th>Customer Name</th>
+                <th>Cotttage Name</th>
+                <th>Booking Start</th>
+                <th>Booking End</th>
+                <th>Booking Duration</th>
+                <th>Accept/Decline</th>
             </tr>
-        }
-    </tbody>
-</table>
+            </thead>
+            <tbody>
+            @foreach (var booking in Model.UnApprovedBookings)
+            {
+                <tr>
+                    <td>
+                        @booking.Customer.FullName
+                    </td>
+                    <td>
+                        @booking.Cottage.Name
+                    </td>
+                    <td>@booking.DateFrom.ToShortDateString()</td>
+                    <td>@booking.DateTo.ToShortDateString()</td>
+                    @{
+                        int durationinDays = 0;
+                        var span = booking.DateTo - booking.DateFrom;
+                        durationinDays = span.Days;
+                    }
+                    <td>@durationinDays <span>Days</span></td>
+                    <td>
+                        <div>
+                            @Html.ActionLink("Accept", "ProcessBookingRequestDecision", "Admin", new {isAccepted = true, bookingId = booking.Id}, new {@class = "mdl-button--raised mdl-button mdl-button--colored"})
+                            @Html.ActionLink("Reject", "ProcessBookingRequestDecision", "Admin", new {isAccepted = false, bookingId = booking.Id}, new {@class = "mdl-button--raised mdl-button mdl-button--colored", @style = "background: red;"})
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+
+</div>

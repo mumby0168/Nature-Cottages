@@ -75,7 +75,7 @@ namespace NatureCottages.Controllers
         }
 
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel vm)
-        {
+        {            
             if (vm.Password == vm.PasswordReEntered)
             {
                 bool res = await _accountService.ResetPassword(vm.Password, vm.Username, vm.Code);
@@ -92,8 +92,7 @@ namespace NatureCottages.Controllers
             var vm = new RequestPasswordResetViewModel();
 
             return View("RequestPasswordReset", vm);
-        }
-
+        }       
 
         [Authorize(Roles = "Admin")]
         [Route("/[controller]/CreateAdminAccount")]
