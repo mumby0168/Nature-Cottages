@@ -7,7 +7,7 @@
         <h2>Contact Us</h2>
 
 
-        @using (Html.BeginForm("", "Contact", FormMethod.Post))
+        @using (Html.BeginForm("SendClientMessage", "Contact", FormMethod.Post))
         {
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 @Html.LabelFor(m => Model.Name, new {@class = "mdl-textfield__label"})
