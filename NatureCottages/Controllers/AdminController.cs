@@ -21,13 +21,27 @@ namespace NatureCottages.Controllers
         private readonly ICottageRepository _cottageRepository;
         private readonly IMailServerService _mailServerService;
         private readonly IFacebookPostRepository _facebookPostRepository;
+        private readonly IAttractionRepository _attractionRepository;
 
-        public AdminController(IBookingRepository bookingRepository, ICottageRepository cottageRepository, IMailServerService mailServerService, IFacebookPostRepository facebookPostRepository)
+        public AdminController(IBookingRepository bookingRepository, ICottageRepository cottageRepository, IMailServerService mailServerService, IFacebookPostRepository facebookPostRepository, IAttractionRepository attractionRepository)
         {
             _bookingRepository = bookingRepository;
             _cottageRepository = cottageRepository;
             _mailServerService = mailServerService;
             _facebookPostRepository = facebookPostRepository;
+            _attractionRepository = attractionRepository;
+        }
+
+        public async Task<IActionResult> LoadActiveAttractions()
+        {
+            var vm = new ActiveAttractionsViewModel()
+            {
+                Attractions = new List<Attraction>(await _attractionRepository.GetAllAysnc())
+            };
+
+
+
+            return View("_ActiveAttractions", vm);
         }
 
         [Route("/Admin/Home")]

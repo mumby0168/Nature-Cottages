@@ -6,6 +6,9 @@
 
 <div align="center" style="height: 100%;">
     <h1>Admin Control Panel</h1>        
+
+    @Html.ActionLink("Create New Admin Account", "LoadCreateAccountAdmin", "Account",null, new {@class = "mdl-button mdl-button--colored mdl-button--raised"})
+
         <div class="mdl-grid--no-spacing full-height-grid" align="center">
             <div class="admin-tile mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-shadow--4dp">
                 <div class="admin-tile-container" align="center">        
@@ -20,8 +23,10 @@
             <div class="admin-tile mdl-cell mdl-cell--6-col-tablet mdl-cell--6-col mdl-shadow--4dp">
                 <div class="admin-tile-container">
                     <div class="center-vertically">
-                        <i class="fas fa-newspaper fa-9x"></i>
-                        <h2 style="font-size: 22px;"> News Management</h2>
+                        <a class="clickable-anchor" href="@Url.Action("LoadActiveAttractions", "Admin")">
+                            <i class="fas fa-newspaper fa-9x"></i>
+                            <h2 style="font-size: 22px;"> News Management</h2>
+                        </a>
                     </div>
                 </div>
             </div>

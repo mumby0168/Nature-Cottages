@@ -1,7 +1,7 @@
 ﻿@model NatureCottages.ViewModels.Home.CottageCardViewModel
 @{
     var images = Model.Cottage.ImageGroup.Images;
-    var imgpath = images[0];
+    var imgpath = images.FirstOrDefault();
 }
 
 

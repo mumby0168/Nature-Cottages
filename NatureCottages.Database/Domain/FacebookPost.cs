@@ -12,6 +12,7 @@ namespace NatureCottages.Database.Domain
 
         [Required]
         [DisplayName("Facebook Post URL")]
+        [Url]
         public string PostUrl { get; set; }
     }
 }

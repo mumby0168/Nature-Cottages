@@ -16,7 +16,7 @@
     
     <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--6-col">
-            <form method="post" enctype="multipart/form-data" action="/Form/SubmitCottageForm" method="post">
+            <form method="post" enctype="multipart/form-data" action="/Forms/SubmitCottageEditForm" method="post">
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     @Html.LabelFor(m => Model.Cottage.Name, new { @class = "mdl-textfield__label" })
@@ -39,14 +39,15 @@
                     @Html.TextAreaFor(m => m.Cottage.Description, new { @class = "mdl-textfield__input" })
                     @Html.ValidationMessageFor(m => m.Cottage.Description)
                 </div>
-                
-                <br/>
-                
+
+                <br />
+
                 <div class="mdl-js-textfield mdl-textfield mdl-textfield--floating-label">
                     @Html.LabelFor(m => m.Cottage.IsVisibleToClient, new { @class = "mdl-textfield__label" })
-                    @Html.CheckBoxFor(m => m.Cottage.IsVisibleToClient, new { @class = "mdl-checkbox__input" })           
+                    @Html.CheckBoxFor(m => m.Cottage.IsVisibleToClient, new { @class = "mdl-checkbox__input" })
                 </div>
 
+                @Html.HiddenFor(m => m.Cottage.Id)
 
                 <br />
                 <input type="submit" />
@@ -61,7 +62,7 @@
             
             <h2>Add Extra Images Here</h2>
 
-            <form enctype="multipart/form-data" method="post" action="\Form\AddImages\@Model.Cottage.ImageGroup.Id">
+            <form enctype="multipart/form-data" method="post" action="\Form\AddImages\@Model.Cottage.ImageGroup.Id\@true">
                 <input type="file" multiple name="images" accept=".png,.jpg,.jpeg"/>
                 <br/>
                 <input type="submit"/>

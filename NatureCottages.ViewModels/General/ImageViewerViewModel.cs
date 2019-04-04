@@ -9,6 +9,8 @@ namespace NatureCottages.ViewModels.General
     {
         public ImageGroup ImageGroup { get; set; }
 
-        public bool IsEditable { get; set; }        
+        public bool IsEditable { get; set; }  
+        
+        public bool IsCottage { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NatureCottages.Database.Repositorys.DomainRepositorys.Interfaces;
 using NatureCottages.Services.Interfaces;
@@ -36,6 +37,8 @@ namespace NatureCottages.Controllers
 
             return View("CreateAccount", vm);
         }
+
+        
 
         public async Task<IActionResult> RequestPasswordReset(RequestPasswordResetViewModel vm)
         {
@@ -94,13 +97,12 @@ namespace NatureCottages.Controllers
         }
 
 
+        [Authorize(Roles = "Admin")]
         [Route("/[controller]/CreateAdminAccount")]
         public IActionResult LoadCreateAccountAdmin(CreateAccountViewModel vm = null)
         {
-            if (vm == null)
-            {
-                vm = new CreateAccountViewModel { IsAdmin = true };
-            }
+            vm = new CreateAccountViewModel();
+            vm.IsAdmin = true;
             ModelState.Clear();
 
             return View("CreateAccount", vm);

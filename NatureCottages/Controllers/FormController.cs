@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp;
@@ -22,15 +23,17 @@ namespace NatureCottages.Controllers
         private readonly IImageGroupRepository _imageGroupRepository;
         private readonly IImageRepository _imageRepository;
         private readonly IFacebookPostRepository _facebookPostRepository;
+        private readonly IMapper _mapper;
 
 
-        public FormController(IAttractionRepository attractionRepository, ICottageRepository cottageRepository, IImageGroupRepository imageGroupRepository, IImageRepository imageRepository, IFacebookPostRepository facebookPostRepository)
+        public FormController(IAttractionRepository attractionRepository, ICottageRepository cottageRepository, IImageGroupRepository imageGroupRepository, IImageRepository imageRepository, IFacebookPostRepository facebookPostRepository, IMapper mapper)
         {
             _attractionRepository = attractionRepository;
             _cottageRepository = cottageRepository;
             _imageGroupRepository = imageGroupRepository;
             _imageRepository = imageRepository;
             _facebookPostRepository = facebookPostRepository;
+            _mapper = mapper;
         }
 
         [Route("Form/LoadAttractionForm")]
@@ -39,15 +42,13 @@ namespace NatureCottages.Controllers
             return View("Forms/_AttractionForm", new AttractionFormViewModel());
         }
 
-        public IActionResult LoadAttractionForm(int attid)
+        public async Task<IActionResult> LoadAttractionEditForm(int id)
         {
-            var attraction = _attractionRepository.Get(attid);
-            return View("Forms/_AttractionForm", new AttractionFormViewModel(){Attraction = attraction});
-        }
+            var attraction = await _attractionRepository.GetAttractionWithImageGroupAsync(id);            
 
-        public Task<IActionResult> SubmitAttractionForm(AttractionFormViewModel vm)
-        {
-            return null;
+            var vm = _mapper.Map<Attraction, EditAttractionViewModel>(attraction);
+
+            return View("Forms/EditAttractionForm", vm);
         }
 
         [Route("Form/RemoveImage/{id}")]
@@ -85,8 +86,8 @@ namespace NatureCottages.Controllers
             return View("Forms/CottageEditForm", vm);
         }
 
-        [Route("Form/AddImages/{id}")]
-        public async Task<IActionResult> AddImages(List<IFormFile> images ,int id)
+        [Route("Form/AddImages/{id}/{isCottage}")]
+        public async Task<IActionResult> AddImages(List<IFormFile> images ,int id, bool isCottage)
         {            
             var group = await _imageGroupRepository.GetImageGroupWithImagesAsync(id);            
 
@@ -102,7 +103,10 @@ namespace NatureCottages.Controllers
 
             await _imageGroupRepository.SaveAsync();
 
-            return await LoadCottageEditForm(await _cottageRepository.GetCottageIdFromImageGroupAsync(id));
+            return isCottage
+                ? await LoadCottageEditForm(await _cottageRepository.GetCottageIdFromImageGroupAsync(id))
+                : await LoadAttractionEditForm(await _attractionRepository.GetAttractionIdFromImageGroup(id));
+
         }
 
         [HttpPost]
@@ -128,7 +132,63 @@ namespace NatureCottages.Controllers
                 
             return RedirectToAction("Index", "Admin");            
         }
-        
+
+        [HttpPost("Form/SubmitAttractionForm")]
+        public async Task<IActionResult> SubmitAttractionForm(List<IFormFile> images,
+            AttractionFormViewModel attractionFormViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var attraction = new Attraction()
+                {
+                    Name = attractionFormViewModel.Name,
+                    Link = attractionFormViewModel.Link,
+                    Description = attractionFormViewModel.Description,
+                    IsVisibleToClient = attractionFormViewModel.IsVisibleToClient,
+                    ImageGroup = new ImageGroup()
+                };
+
+                attraction.ImageGroup.Images = new List<Image>();
+
+                WriteImages(images);
+
+                AddImages(ref attraction, images);
+
+                await _attractionRepository.AddAysnc(attraction);
+                await _attractionRepository.SaveAsync();
+
+                return RedirectToAction("LoadActiveAttractions", "Admin");
+            }
+
+            return View("Forms/_AttractionForm", attractionFormViewModel);
+        }
+
+        [HttpPost("Forms/SubmitEditAttractionForm")]
+        public async Task<IActionResult> SubmitEditAttractionForm(EditAttractionViewModel vm)
+        {
+            var attraction = await _attractionRepository.GetAsync(vm.Id);
+
+            _mapper.Map<EditAttractionViewModel, Attraction>(vm, attraction);
+
+            await _attractionRepository.SaveAsync();
+
+            return RedirectToAction("LoadActiveAttractions", "Admin");
+        }
+
+        [HttpPost("Forms/SubmitCottageEditForm")]
+        public async Task<IActionResult> SubmitCottageEditForm(CottageFormViewModel vm)
+        {
+            var cottage = await _cottageRepository.GetAsync(vm.Cottage.Id);
+
+            cottage.Description = vm.Cottage.Description;
+            cottage.Name = vm.Cottage.Name;
+            cottage.PricePerNight = vm.Cottage.PricePerNight;
+            cottage.IsVisibleToClient = vm.Cottage.IsVisibleToClient;
+
+            await _cottageRepository.SaveAsync();
+
+            return RedirectToAction("LoadAllCottages", "Admin");
+        }
 
         public async Task<IActionResult> ProcessFacebookPostForm(FacebookPost facebookPost)
         {
@@ -152,7 +212,12 @@ namespace NatureCottages.Controllers
 
         private void AddImages(ref Cottage cottage, List<IFormFile> images)
         {
-            foreach (var i in images) cottage.ImageGroup.Images.Add(new Image() { ImagePath = @"\images\" + i.FileName });
+            foreach (var i in images) cottage.ImageGroup.Images.Add(new Image() {ImagePath = @"\images\" + i.FileName});
+        }
+
+        private void AddImages(ref Attraction attraction, List<IFormFile> images)
+        {
+            foreach (var i in images) attraction.ImageGroup.Images.Add(new Image() { ImagePath = @"\images\" + i.FileName });
         }
 
     }

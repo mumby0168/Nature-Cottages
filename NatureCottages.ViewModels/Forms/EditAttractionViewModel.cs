@@ -6,8 +6,15 @@ using NatureCottages.Database.Domain;
 
 namespace NatureCottages.ViewModels.Forms
 {
-    public class AttractionFormViewModel
+    public class EditAttractionViewModel
     {
+        public EditAttractionViewModel()
+        {
+            ImageGroup = new ImageGroup();
+        }
+
+        public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
         [Required]
@@ -18,5 +25,8 @@ namespace NatureCottages.ViewModels.Forms
         [Url]
         [Required]
         public string Link { get; set; }
-}
+
+        public ImageGroup ImageGroup { get; set; }
+
+    }
 }

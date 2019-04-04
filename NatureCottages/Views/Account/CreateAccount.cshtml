@@ -65,6 +65,8 @@
                     @Html.ValidationMessageFor(m => m.ConfirmationPassword)
                 </div>
 
+                @Html.HiddenFor(m => Model.IsAdmin);
+
                 <br />
 
                 <input type="submit" class="mdl-button mdl-button--colored" />

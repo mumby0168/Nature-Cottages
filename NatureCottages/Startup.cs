@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -60,10 +61,12 @@ namespace NatureCottages
                 .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
                     (options) =>
-                    {                        
+                    {
                         options.LoginPath = "/Account/Login";
-                        options.LogoutPath = "/Account/Logout";                        
+                        options.LogoutPath = "/Account/Logout";
                     });
+
+            services.AddAutoMapper();
 
 
         }
@@ -81,7 +84,7 @@ namespace NatureCottages
 
             app.UseDeveloperExceptionPage();
 
-            app.UseAuthentication();
+            app.UseAuthentication();           
             
             app.UseMvcWithDefaultRoute();            
 

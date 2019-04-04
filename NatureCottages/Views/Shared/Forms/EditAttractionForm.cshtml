@@ -1,0 +1,69 @@
+﻿@using NatureCottages.ViewModels.General
+@model NatureCottages.ViewModels.Forms.EditAttractionViewModel
+@{
+    Layout = "~/Views/Shared/Layout/_Layout.cshtml";
+}
+
+<div align="center" style="margin: 5%;">
+
+    <h3>Edit Attraction</h3>
+
+
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--6-col">
+            <form method="post" enctype="multipart/form-data" action="/Forms/SubmitEditAttractionForm" method="post">
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    @Html.LabelFor(m => Model.Name, new { @class = "mdl-textfield__label" })
+                    @Html.TextBoxFor(m => Model.Name, new { @class = "mdl-textfield__input" })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
+
+                <br />
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    @Html.LabelFor(m => Model.Link, new { @class = "mdl-textfield__label" })
+                    @Html.TextBoxFor(m => Model.Link, new { @class = "mdl-textfield__input" })
+                    @Html.ValidationMessageFor(m => m.Link)
+                </div>
+
+                <br />
+
+                <div class="mdl-js-textfield mdl-textfield mdl-textfield--floating-label">
+                    @Html.LabelFor(m => m.Description, new { @class = "mdl-textfield__label" })
+                    @Html.TextAreaFor(m => m.Description, new { @class = "mdl-textfield__input" })
+                    @Html.ValidationMessageFor(m => m.Description)
+                </div>
+
+                <br />
+
+                <div class="mdl-js-textfield mdl-textfield mdl-textfield--floating-label">
+                    @Html.LabelFor(m => m.IsVisibleToClient, new { @class = "mdl-textfield__label" })
+                    @Html.CheckBoxFor(m => m.IsVisibleToClient, new { @class = "mdl-checkbox__input" })
+                </div>
+
+                @Html.HiddenFor(m => m.Id);
+
+
+                <br />
+                <input type="submit" />
+                <br />
+            </form>
+        </div>
+
+
+
+        <div class="mdl-cell mdl-cell--6-col">
+            @await Html.PartialAsync("ImageViewer", new ImageViewerViewModel { ImageGroup = Model.ImageGroup, IsEditable = true, IsCottage = true})
+
+            <h2>Add Extra Images Here</h2>
+
+            <form enctype="multipart/form-data" method="post" action="\Form\AddImages\@Model.ImageGroup.Id\@false">
+                <input type="file" multiple name="images" accept=".png,.jpg,.jpeg" />
+                <br />
+                <input type="submit" />
+            </form>
+
+        </div>
+    </div>
+</div>
