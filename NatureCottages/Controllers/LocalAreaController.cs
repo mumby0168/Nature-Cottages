@@ -25,7 +25,7 @@ namespace NatureCottages.Controllers
         
         public async Task<IActionResult> Index()
         {
-            var attractions = await _attractionRepository.GetAttractionsVisibleToClientAsync();
+            var attractions = await _attractionRepository.GetAttractionsVisibleToClientWithImagesAsync();
             var posts = await _facebookPostRepository.GetAllAysnc();
 
             var vm = new LocalAreaViewModel

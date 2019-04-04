@@ -41,11 +41,11 @@
 
                         @if (attraction.IsVisibleToClient)
                         {
-                            @Html.ActionLink("Hide from Clients", "", "Admin", new { cottid = attraction.Id }, new { @class = "mdl-button--accent mdl-button--raised mdl-button" })
+                            @Html.ActionLink("Hide from Clients", "MakeAttractionNonVisible", "Admin", new { id = attraction.Id }, new { @class = "mdl-button--accent mdl-button--raised mdl-button" })
                         }
                         else
                         {
-                            @Html.ActionLink("Show to Clients", "", "Admin", new { cottid = attraction.Id }, new { @class = "mdl-button--accent mdl-button--raised mdl-button" })
+                            @Html.ActionLink("Show to Clients", "MakeAttractionVisible", "Admin", new { id = attraction.Id }, new { @class = "mdl-button--accent mdl-button--raised mdl-button" })
                         }
                     </td>
                 </tr>

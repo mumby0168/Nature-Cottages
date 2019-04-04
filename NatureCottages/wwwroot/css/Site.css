@@ -6,6 +6,11 @@
     display: none;    
 }
 
+.attraction-card-img {
+    width: 100%;
+    height: 80%;
+}
+
 
 .visible-card-image {
     width: 100%;

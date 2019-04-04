@@ -8,7 +8,7 @@ namespace NatureCottages.Database.Repositorys.DomainRepositorys.Interfaces
 {
     public interface IAttractionRepository : IRepository<Attraction>, IRepositoryAsync<Attraction>
     {
-        Task<List<Attraction>> GetAttractionsVisibleToClientAsync();
+        Task<List<Attraction>> GetAttractionsVisibleToClientWithImagesAsync();
 
         Task<Attraction> GetAttractionWithImageGroupAsync(int id);
 

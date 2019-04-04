@@ -18,9 +18,9 @@ namespace NatureCottages.Database.Repositorys.DomainRepositorys
         {
         }
 
-        public async Task<List<Attraction>> GetAttractionsVisibleToClientAsync()
+        public async Task<List<Attraction>> GetAttractionsVisibleToClientWithImagesAsync()
         {
-            return await Task.Run(() => Context.Attractions.Where(a => a.IsVisibleToClient).ToList());
+            return await Task.Run(() => Context.Attractions.Include(a => a.ImageGroup).Include(a => a.ImageGroup.Images).Where(a => a.IsVisibleToClient).ToList());
         }
 
         public async Task<Attraction> GetAttractionWithImageGroupAsync(int id)

@@ -105,8 +105,8 @@ namespace NatureCottages.Controllers
 
                 return View("EmailSent", new EmailSentViewModel
                 {
-                    EmailAddress = "The Cottage Owners",
-                    Message = "Please expect a response in the next few days frm the cottages owners confirming your booking request."
+                    EmailAddress = "liziogitescottages@gmail.com",
+                    Message = "Please expect a response in the next few days from\n the cottages owners confirming your booking request."
                 });
             }
 

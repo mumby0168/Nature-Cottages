@@ -126,6 +126,24 @@ namespace NatureCottages.Controllers
             return await LoadAllCottages();
         }
 
+        public async Task<IActionResult> MakeAttractionVisible(int id)
+        {
+            var attraction = await _attractionRepository.GetAsync(id);
+            attraction.IsVisibleToClient = true;
+            await _attractionRepository.SaveAsync();
+
+            return await LoadActiveAttractions();
+        }
+
+        public async Task<IActionResult> MakeAttractionNonVisible(int id)
+        {
+            var attraction = await _attractionRepository.GetAsync(id);
+            attraction.IsVisibleToClient = false;
+            await _attractionRepository.SaveAsync();
+
+            return await LoadActiveAttractions();
+        }
+
         public async Task<IActionResult> LoadFacebookManagement()
         {
             var vm = new FacebookPostManagementViewModel()
