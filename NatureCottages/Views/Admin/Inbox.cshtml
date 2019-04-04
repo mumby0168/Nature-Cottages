@@ -26,7 +26,7 @@
                     <td class="mdl-data-table__cell--non-numeric">@message.Email</td>
                     <td>@message.DateSent.ToShortDateString()</td>
                     <td>
-                        <button class="mdl-button mdl-button--raised mark-btn" messageId="@message.Id">Mark</button>
+                        @Html.ActionLink("Mark", "MarkMessageAsClosed", "Admin", new {id = message.Id}, new {@class = "mdl-button mdl-button--raised"})
                     </td>
                     <td>
                         <button class="mdl-button mdl-button--raised read-btn" messageId="@message.Id">Read</button>
@@ -38,4 +38,6 @@
         </table>
     </div>
 </div>
+
+<script src="~/js/inboxController.js" type="text/javascript"></script>
 

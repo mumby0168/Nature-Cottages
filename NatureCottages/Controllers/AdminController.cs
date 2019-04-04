@@ -92,6 +92,33 @@ namespace NatureCottages.Controllers
             return View("Inbox", vm);
         }
 
+        public async Task<IActionResult> MarkMessageAsClosed(int id)
+        {
+            var message = await _clientMessageRepository.GetAsync(id);
+            message.IsClosed = true;
+            message.DateClosed = DateTime.Now;            
+            await _clientMessageRepository.SaveAsync();
+
+            return await LoadInbox();
+        }
+
+        [HttpGet("Admin/ReadMessage/{id}")]
+        public async Task<IActionResult> ReadMessage(int id)
+        {
+            var message = await _clientMessageRepository.GetAsync(id);
+
+            var vm = new ReadMessageViewModel()
+            {
+                Message = message.Message,
+                Name = message.Name,
+                Email = message.Email
+            };
+
+
+            return View("_ReadMessage", vm);
+
+        }
+
         public async Task<IActionResult> ProcessBookingRequestDecision(bool isAccepted, int bookingId)
         {
 

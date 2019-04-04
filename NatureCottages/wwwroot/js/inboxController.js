@@ -1,25 +1,23 @@
 ﻿$(document).ready(() => {
-
-    var markButtons = $(".mark-btn");
+    
     var readButtons = $(".read-btn");
 
-    markButtons.forEach((i) => $(i).click(onMarkClicked));
-    readButtons.forEach((i) => $(i).click(onReadClicked));
+    var i;
+
+    for (i = 0; i < readButtons.length; i++) {
+	    $(readButtons[i]).click(onReadClicked);
+    }
 });
 
-
-var onMarkClicked = (e) => {
-	var id = getId(e);
-}
 
 var onReadClicked = (e) => {
     var id = getId(e);
 
     $.ajax({
-        url: "",
-        method: "get",
+        url: "/Admin/ReadMessage/" + id,
+        method: "GET",
         success: function(partial) {
-
+			$("#MessageArea").html(partial);
         },
         error: function(error) {
             console.log("error");
