@@ -11,6 +11,7 @@ using NatureCottages.Database.Domain;
 using NatureCottages.Database.Repositorys.DomainRepositorys.Interfaces;
 using NatureCottages.Services.Interfaces;
 using NatureCottages.ViewModels.Availability;
+using NatureCottages.ViewModels.Shared;
 
 namespace NatureCottages.Controllers
 {
@@ -65,8 +66,19 @@ namespace NatureCottages.Controllers
             {
                 //check date interception with other booking
                 {
+
+
+                    if (booking.DateFrom < DateTime.Now || booking.DateTo < DateTime.Now)
+                        return await LoadEnquirePage(booking.CottageId,
+                            new List<string>() {"Please select dates in the future"});
+
+                    if (booking.DateFrom > booking.DateTo)
+                        return await LoadEnquirePage(booking.CottageId,
+                            new List<string>() {"The start date cannot be before the end date."});
+
                     var bookingsOnCottage = await _bookingRepository.FindAysnc(b => b.CottageId == booking.CottageId);
-                    var bookingsInFuture = bookingsOnCottage.Where(b => b.DateFrom > DateTime.Now);
+
+                    var bookingsInFuture = bookingsOnCottage.Where(b => b.DateFrom >= booking.DateFrom || b.DateTo >= booking.DateFrom).ToList();
 
                     foreach (var futureBooking in bookingsInFuture)
                     {
@@ -90,7 +102,12 @@ namespace NatureCottages.Controllers
 
                 var vm = new AvailabilityViewModel();
                 vm.Cottages = (List<Cottage>) await _cottageRepository.GetCottagesWithImagesAsync();
-                return View("Availability", vm);
+
+                return View("EmailSent", new EmailSentViewModel
+                {
+                    EmailAddress = "The Cottage Owners",
+                    Message = "Please expect a response in the next few days frm the cottages owners confirming your booking request."
+                });
             }
 
             return await LoadEnquirePage(booking.CottageId);
