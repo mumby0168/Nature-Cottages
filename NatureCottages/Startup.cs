@@ -44,6 +44,7 @@ namespace NatureCottages
             services.AddScoped<ICottageRepository, CottageRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IClientMessageRepository, ClientMessageRepository>();
             services.AddScoped<IImageGroupRepository, ImageGroupRepository>();
             services.AddScoped<IMailServerService, MailServersService>();
             services.AddScoped<IDateCheckerService, DateCheckerService>();
