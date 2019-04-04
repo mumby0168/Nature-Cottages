@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace NatureCottages.Database.Domain
+namespace NatureCottages.ViewModels.Contact
 {
-    public class ClientMessage
+    public class ContactFormViewModel
     {
-        public int Id { get; set; }
-
+        [Required]
         public string Name { get; set; }
 
+        [Required]        
         public string Message { get; set; }
 
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
-
-        public DateTime DateSent { get; set; }
-
-        public DateTime? DateClosed { get; set; }
     }
 }
-    
