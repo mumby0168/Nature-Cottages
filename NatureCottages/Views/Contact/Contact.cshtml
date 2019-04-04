@@ -1,4 +1,5 @@
-﻿
+﻿@using NatureCottages.ViewModels.Contact
+
 @{
     ViewData["Title"] = "Contact";
     Layout = "~/Views/Shared/Layout/_Layout.cshtml";
@@ -11,7 +12,7 @@
         Address Details
     </div>
     <div class="mdl-cell mdl-cell--6-col mdl-shadow--4dp">
-        Contact Details
+        @await Html.PartialAsync("_ContactForm", new ContactFormViewModel())
     </div>
 </div>
 
