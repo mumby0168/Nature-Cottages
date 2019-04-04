@@ -8,7 +8,7 @@
 
 .attraction-card-img {
     width: 100%;
-    height: 80%;
+    height: 300px;
 }
 
 
@@ -28,7 +28,8 @@
 
 .admin-tile {
     height: 50%;
-    width: 49%;    
+    width: 49%;
+    margin: 3px;
 }
 
 .table-header-button {
@@ -37,7 +38,7 @@
 }
 
 .full-height-grid {
-    height: 80%;
+    height: 70%;
 }
 
 .admin-tile-container {

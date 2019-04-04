@@ -4,12 +4,18 @@
     ViewData["Title"] = "Contact";
     Layout = "~/Views/Shared/Layout/_Layout.cshtml";
 }
+<div align="center">
+    <h2>Contact Us</h2>
+    <hr/>
+</div>
+
+
 
 <div id="googleMap" style="width:70%;height:40%; margin-left: auto; margin-right: auto; margin-top: 3%;"></div>
 
 <div style="width: 70%; height: 40%" align="center" class="mdl-grid">
     <div class="mdl-cell mdl-cell--6-col mdl-shadow--4dp">
-        Address Details
+        <h3>Address Details</h3>
     </div>
     <div class="mdl-cell mdl-cell--6-col mdl-shadow--4dp">
         @await Html.PartialAsync("_ContactForm", new ContactFormViewModel())

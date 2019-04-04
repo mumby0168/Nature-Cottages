@@ -138,7 +138,7 @@ namespace NatureCottages.Controllers
 
             if (result && vm.ReturnRoute != null)
             {
-                NatureCottages.User.Username = vm.Username;
+                NatureCottages.CurrentUser.Username = vm.Username;
                 return Redirect(vm.ReturnRoute);
             }
             
@@ -147,11 +147,11 @@ namespace NatureCottages.Controllers
 
         public async Task<IActionResult> Logout()
         {
-            NatureCottages.User.Username = "";
+            NatureCottages.CurrentUser.Username = "";
 
             await _accountService.SignOut(HttpContext);
 
-            return View("Login");
+            return View("Login", new LoginViewModel());
         }
     }
 }

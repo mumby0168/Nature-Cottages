@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Http
+@using NatureCottages
 
 @{
     Layout = null;
@@ -50,21 +51,7 @@
                     </button>
                     
                     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-                        for="demo-menu-lower-left">
-                        <li class="mdl-menu__item">
-                            @{
-                                string username;
-                                if (string.IsNullOrWhiteSpace(NatureCottages.User.Username))
-                                {
-                                    username = "Please login.";
-                                }
-                                else
-                                {
-                                    username = NatureCottages.User.Username;
-                                }
-                            }
-                            @username
-                        </li>
+                        for="demo-menu-lower-left">                        
                         <li class="mdl-menu__item">
                             @Html.ActionLink("Login", "LoadLogin", "Account", new object { }, new { @class = "clickable-anchor" })
                         </li>

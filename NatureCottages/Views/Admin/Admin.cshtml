@@ -12,14 +12,15 @@
             @Html.ActionLink("Create New Admin Account", "LoadCreateAccountAdmin", "Account", null, new { @class = "mdl-button", @style = "font-size: 22px;" })
         </div>
         <div class="mdl-cell mdl-cell--6-col">
-            <a style="font-size: 22px;" class="clickable-anchor" href="\Admin\LoadInbox"><span class="mdl-badge" data-badge="@Model.Messages">Inbox</span></a>
+            <a style="font-size: 22px;" class="clickable-anchor" href="\Admin\LoadInbox"><span class="mdl-badge" style="font-weight: bold" data-badge="@Model.Messages">INBOX</span></a>
         </div>
     </div>
-
+    
+    <hr/>
         
 
-        <div class="mdl-grid--no-spacing full-height-grid" align="center">
-            <div class="admin-tile mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-shadow--4dp">
+    <div class="mdl-grid full-height-grid" align="center">
+            <div class="admin-tile mdl-cell--6-col-phone mdl-shadow--4dp">
                 <div class="admin-tile-container" align="center">
                     <div class="center-vertically">
                         <a class="clickable-anchor" href="@Url.Action("LoadAllCottages", "Admin")">
@@ -29,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div class="admin-tile mdl-cell mdl-cell--6-col-tablet mdl-cell--6-col mdl-shadow--4dp">
+            <div class="admin-tile mdl-cell--6-col-phone mdl-shadow--4dp">
                 <div class="admin-tile-container">
                     <div class="center-vertically">
                         <a class="clickable-anchor" href="@Url.Action("LoadActiveAttractions", "Admin")">
@@ -39,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div class="admin-tile mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-shadow--4dp">
+            <div class="admin-tile mdl-cell--6-col-phone mdl-shadow--4dp">
                 <div class="admin-tile-container">
                     <div class="center-vertically">
                         <a class="clickable-anchor" href="@Url.Action("LoadBookingRequests", "Admin")">
@@ -49,7 +50,7 @@
                     </div>
                 </div>
             </div>
-            <div class="admin-tile mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-shadow--4dp">
+            <div class="admin-tile mdl-cell--6-col-phone mdl-shadow--4dp">
                 <div class="admin-tile-container">
                     <div class="center-vertically">
                         <a class="clickable-anchor" href="@Url.Action("LoadFacebookManagement", "Admin")">

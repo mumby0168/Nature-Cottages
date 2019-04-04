@@ -56,7 +56,7 @@ namespace NatureCottages
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
             services.AddScoped<INullStringModelChecker, NullStringModelChecker>();            
-            services.AddSingleton<IUser, User>();
+            services.AddSingleton<IUser, CurrentUser>();
 
             services
                 .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
