@@ -17,6 +17,8 @@ namespace NatureCottages.Database.Domain
         public DateTime DateSent { get; set; }
 
         public DateTime? DateClosed { get; set; }
+
+        public bool IsClosed { get; set; }
     }
 }
     

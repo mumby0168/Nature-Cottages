@@ -1,0 +1,41 @@
+﻿@model NatureCottages.ViewModels.Admin.InboxViewModel
+@{
+    Layout = "Layout/_Layout";   
+}
+
+<div class="center-outer">
+    <div class="center-inner">
+        
+        <div id="MessageArea"></div>
+
+        <h2>Messages</h2>
+                
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <thead>
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric">Email</th>
+                <th>Date Sent</th>
+                <th>Mark as Read</th>
+                <th>Read</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var message in Model.ClientMessages)
+            {
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">@message.Email</td>
+                    <td>@message.DateSent.ToShortDateString()</td>
+                    <td>
+                        <button class="mdl-button mdl-button--raised mark-btn" messageId="@message.Id">Mark</button>
+                    </td>
+                    <td>
+                        <button class="mdl-button mdl-button--raised read-btn" messageId="@message.Id">Read</button>
+                    </td>
+                </tr>
+            }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+

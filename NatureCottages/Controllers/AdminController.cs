@@ -22,14 +22,16 @@ namespace NatureCottages.Controllers
         private readonly IMailServerService _mailServerService;
         private readonly IFacebookPostRepository _facebookPostRepository;
         private readonly IAttractionRepository _attractionRepository;
+        private readonly IClientMessageRepository _clientMessageRepository;
 
-        public AdminController(IBookingRepository bookingRepository, ICottageRepository cottageRepository, IMailServerService mailServerService, IFacebookPostRepository facebookPostRepository, IAttractionRepository attractionRepository)
+        public AdminController(IBookingRepository bookingRepository, ICottageRepository cottageRepository, IMailServerService mailServerService, IFacebookPostRepository facebookPostRepository, IAttractionRepository attractionRepository, IClientMessageRepository clientMessageRepository)
         {
             _bookingRepository = bookingRepository;
             _cottageRepository = cottageRepository;
             _mailServerService = mailServerService;
             _facebookPostRepository = facebookPostRepository;
             _attractionRepository = attractionRepository;
+            _clientMessageRepository = clientMessageRepository;
         }
 
         public async Task<IActionResult> LoadActiveAttractions()
@@ -41,7 +43,7 @@ namespace NatureCottages.Controllers
 
 
 
-            return View("_ActiveAttractions", vm);
+            return View("ActiveAttractions", vm);
         }
 
         [Route("/Admin/Home")]
@@ -54,6 +56,8 @@ namespace NatureCottages.Controllers
                 UnApprovedBookings = 
                     await _bookingRepository.GetAllUnApprovedBookingsWithCustomerAndCottage()
             };
+
+            vm.Messages = await _clientMessageRepository.GetAmountOfUnClosedMessagesAsync();
         
             return View("Admin", vm);
         }
@@ -67,7 +71,7 @@ namespace NatureCottages.Controllers
 
             vm.Cottages = vm.Cottages.OrderByDescending(c => c.IsVisibleToClient).ToList();
           
-            return View("_ActiveCottages", vm);
+            return View("ActiveCottages", vm);
         }
 
         public async Task<IActionResult> LoadBookingRequests()
@@ -75,7 +79,17 @@ namespace NatureCottages.Controllers
             var vm = new BookingRequestsViewModel();
             vm.UnApprovedBookings = await _bookingRepository.GetAllUnApprovedBookingsWithCustomerAndCottage();
 
-            return View("_BookingRequests", vm);
+            return View("BookingRequests", vm);
+        }
+
+        public async Task<IActionResult> LoadInbox()
+        {
+            var vm = new InboxViewModel
+            {
+                ClientMessages = await _clientMessageRepository.GetAllOpenClientMessagesAsync()
+            };
+
+            return View("Inbox", vm);
         }
 
         public async Task<IActionResult> ProcessBookingRequestDecision(bool isAccepted, int bookingId)

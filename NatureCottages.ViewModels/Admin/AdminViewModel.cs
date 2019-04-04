@@ -12,6 +12,9 @@ namespace NatureCottages.ViewModels.Admin
             ActiveCottagesViewModel = new ActiveCottagesViewModel();
             ActiveAttractionsViewModel = new ActiveAttractionsViewModel();
         }
+
+        public int Messages { get; set; }
+
         public BookingRequestsViewModel BookingRequestsViewModel { get; set; }
 
         public ActiveCottagesViewModel ActiveCottagesViewModel { get; set; }
