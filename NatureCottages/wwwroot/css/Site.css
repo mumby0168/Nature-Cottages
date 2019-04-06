@@ -110,11 +110,18 @@ footer {
     height: 10%;
 }
 
+
+/*border-radius: 5px;
+width: 80%;
+height: 100%;
+text-align: left;*/
+
 .cottage-card {
-    border-radius: 5px;
-    width: 80%;
     height: 100%;
-    text-align: left;
+}
+
+.card-img-top {
+    height: 50%;
 }
 
 .attraction-card {
@@ -215,4 +222,8 @@ footer {
 .facebook-post-wrapper {
     height: 85%;
     overflow: scroll;
+}
+
+.btn-material-primary {
+    background: #8BC34A;    
 }

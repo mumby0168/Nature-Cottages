@@ -19,7 +19,7 @@
     @foreach (var cottage in Model.Cottages)
     {
         <div class="mdl-cell--4-col mdl-cell" align="center">
-            @await Html.PartialAsync("_BasicCottageCard", new CottageCardViewModel() { Cottage = cottage })
+            @await Html.PartialAsync("_BasicCottageCardV2", new CottageCardViewModel() { Cottage = cottage })
         </div>
         
     }

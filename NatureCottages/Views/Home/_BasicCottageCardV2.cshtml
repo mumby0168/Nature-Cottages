@@ -1,0 +1,34 @@
+﻿@model NatureCottages.ViewModels.Home.CottageCardViewModel
+@{
+    var images = Model.Cottage.ImageGroup.Images;
+    var imgpath = images.FirstOrDefault();
+}
+
+
+<div sliderIndex="0" class="card cottage-card mdl-shadow--4dp d-flex flex-column">
+    @foreach (var image in images)
+    {
+        <img class="card-img-top card-img" src="@image.ImagePath" alt="Cottage Image"/>
+    }
+
+    <div class="card-img-overlay">
+        <button id="right-slider-button" style="float: right; margin: 2px;" class="right-slider-button btn-material-primary card-link btn">
+            <i class="material-icons">arrow_forward</i>
+        </button>
+
+        <button style="float: left; margin: 2px;" class="left-slider-button card-link btn btn-material-primary">
+            <i class="material-icons">arrow_back</i>
+        </button>
+    </div>
+
+    <div class="card-body">
+        <div class="card-title">
+            @Model.Cottage.Name
+        </div>
+        <hr />
+        <p class="card-text">@Model.Cottage.Description</p>
+
+        @Html.ActionLink("More Info", "Index", "Availability", null, new { @class = "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" })
+
+    </div>
+</div>
