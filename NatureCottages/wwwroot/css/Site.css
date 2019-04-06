@@ -225,5 +225,6 @@ text-align: left;*/
 }
 
 .btn-material-primary {
-    background: #8BC34A;    
+    background: #8BC34A;
+    opacity: 0.75;
 }
