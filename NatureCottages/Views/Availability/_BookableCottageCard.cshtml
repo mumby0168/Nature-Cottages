@@ -28,13 +28,14 @@
         <div class="card-body">
             <div class="card-title">
                 @Model.Cottage.Name
-            </div>
-            <hr />
+                <hr />
+            </div>            
+          
             <p class="card-text">@Model.Cottage.Description</p>
-
-            @Html.ActionLink("Enquire Now", "LoadEnquirePage", "Availability", new {cottageid = Model.Cottage.Id}, new {@class = "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" })            
-
-        </div>
+            
+                @Html.ActionLink("Enquire Now", "LoadEnquirePage", "Availability", new { cottageid = Model.Cottage.Id }, new { @class = "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect align-self-end" })            
+                    
+                </div>            
     </div>
 
        

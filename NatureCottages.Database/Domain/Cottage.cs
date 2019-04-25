@@ -16,7 +16,7 @@ namespace NatureCottages.Database.Domain
         [DisplayName("Cottage Name")]
         public string Name { get; set; }
 
-        [MaxLength(300)]
+        [MaxLength(1000)]
         [DisplayName("Cottage Description")]
         public string Description { get; set; }        
 

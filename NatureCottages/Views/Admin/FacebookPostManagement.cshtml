@@ -4,12 +4,18 @@
 @{
     Layout = "Layout/_Layout";
 }
+    <a class="back-to-admin-button clickable-anchor" href="@Url.Action("Index", "Admin")"><i class="fa fa-3x fa-arrow-circle-left"></i></a>
 
 <script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
 
-<div align="center">
-    @await Html.PartialAsync("Forms/_FacebookPostForm", new FacebookPost())
+<div align="center" class="container">
+    <div style="margin: 5px;" >
+        @await Html.PartialAsync("Forms/_FacebookPostForm", new FacebookPost())
+    </div>
+    
 </div>
+
+<hr/>
 
 <div align="center">
     @foreach (var post in @Model.FacebookPosts)

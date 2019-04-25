@@ -3,54 +3,60 @@
 @{
     Layout = "Layout/_Layout";
 }
+    <a class="back-to-admin-button clickable-anchor" href="@Url.Action("Index", "Admin")"><i class="fa fa-3x fa-arrow-circle-left"></i></a>
 
-<div align="center" style="margin: 5%;">
+    <div class="container">
 
-    <h3>Add Cottage</h3>
+        <div align="center" style="margin: 5%; padding: 10px;" class="mdl-shadow--4dp">
+            <br/>
+            <h3>Add News Item</h3>
+            <hr/>
 
-    <form method="post" enctype="multipart/form-data" action="/Form/SubmitAttractionForm">
+            <form method="post" enctype="multipart/form-data" action="/Form/SubmitAttractionForm">
 
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            @Html.LabelFor(m => Model.Name, new { @class = "mdl-textfield__label" })
-            @Html.TextBoxFor(m => Model.Name, new { @class = "mdl-textfield__input" })
-            @Html.ValidationMessageFor(m => m.Name)
-        </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    @Html.LabelFor(m => Model.Name, new { @class = "mdl-textfield__label" })
+                    @Html.TextBoxFor(m => Model.Name, new { @class = "mdl-textfield__input" })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
 
-        <br />
-        
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            @Html.LabelFor(m => Model.Link, new { @class = "mdl-textfield__label" })
-            @Html.TextBoxFor(m => Model.Link, new { @class = "mdl-textfield__input" })
-            @Html.ValidationMessageFor(m => m.Link)
-        </div>
-      
-        <br />
+                <br />
 
-        <div class="mdl-js-textfield mdl-textfield mdl-textfield--floating-label">
-            @Html.LabelFor(m => m.Description, new { @class = "mdl-textfield__label" })
-        @Html.TextAreaFor(m => m.Description, new { @class = "mdl-textfield__input" })
-        @Html.ValidationMessageFor(m => m.Description)
-        
-        <br/>
-        
-        </div>
-        
-        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="Attraction_IsVisibleToClient">
-            @Html.CheckBoxFor(m => m.IsVisibleToClient, new { @class = "mdl-checkbox__input" })
-            <span class="mdl-checkbox__label">Visible To Client?</span>
-        </label>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    @Html.LabelFor(m => Model.Link, new { @class = "mdl-textfield__label" })
+                    @Html.TextBoxFor(m => Model.Link, new { @class = "mdl-textfield__input" })
+                    @Html.ValidationMessageFor(m => m.Link)
+                </div>
+
+                <br />
+
+                <div class="mdl-js-textfield mdl-textfield mdl-textfield--floating-label">
+                    @Html.LabelFor(m => m.Description, new { @class = "mdl-textfield__label" })
+                    @Html.TextAreaFor(m => m.Description, new { @class = "mdl-textfield__input" })
+                    @Html.ValidationMessageFor(m => m.Description)
+
+                    <br />
+
+                </div>
+
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="Attraction_IsVisibleToClient">
+                    @Html.CheckBoxFor(m => m.IsVisibleToClient, new { @class = "mdl-checkbox__input" })
+                    <span class="mdl-checkbox__label">Visible To Client?</span>
+                </label>
+
+
+                <br />
+                <br />
+
+                <div class="">
+                    <input name="images" type="file" multiple accept=".png,.jpeg,.jpg"  ckas/>
+                </div>
                 
-     
-        <br/>
-        <br />
-            
-        <div class="">
-            <input name="images" type="file" multiple accept=".png,.jpeg,.jpg" />
+                <br/>
+                <input type="submit" class="mdl-button--raised mdl-button mdl-button--accent"/>
+
+                <br />
+            </form>
+
         </div>
-
-        <input type="submit" />
-
-        <br />
-    </form>
-
-</div>
+    </div>

@@ -4,23 +4,28 @@
     ViewData["Title"] = "Availability";
     Layout = "~/Views/Shared/Layout/_Layout.cshtml";
 }
-    <div align="center">
+
+<br/>
+<div align="center">
         <h2>Availability</h2>
         <hr />
     </div>
 
 <div>
-    <div class="mdl-grid">
-
-        @foreach (var cottage in Model.Cottages)
-        {
-            <div class="mdl-cell--4-col mdl-cell" align="center">
-                @{
-                    BookableCottageViewModel vm = new BookableCottageViewModel();
-                    vm.Cottage = cottage;
-                    @await Html.PartialAsync("_BookableCottageCard", vm)
+    <div class="page-padder">
+        <div class="grid">
+            <div class="row">
+                @foreach (var cottage in Model.Cottages)
+                {
+                    <div class="col-3" align="center">
+                        @{
+                            BookableCottageViewModel vm = new BookableCottageViewModel();
+                            vm.Cottage = cottage;
+                            @await Html.PartialAsync("_BookableCottageCard", vm)
+                        }
+                    </div>
                 }
             </div>
-        }
+        </div>        
     </div>
-</div>
+    </div>

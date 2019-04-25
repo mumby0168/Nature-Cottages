@@ -90,7 +90,7 @@
 }
 
 #ActiveCottagesTable {
-    width: 80%;
+    width: 100%;
 }
 
 .standard-image {
@@ -117,7 +117,7 @@ height: 100%;
 text-align: left;*/
 
 .cottage-card {
-    height: 100%;
+    height: 90%;
 }
 
 .card-img-top {
@@ -228,3 +228,21 @@ text-align: left;*/
     background: #8BC34A;
     opacity: 0.75;
 }
+
+.add-cottage-button {
+    margin-bottom: 5px;
+    float: left;
+}
+
+.back-to-admin-button {
+    float: left;
+    margin:10px;
+}
+
+.card-action-button {
+    margin-bottom: 2px;
+}
+.page-padder {
+    margin: 20px;
+}
+

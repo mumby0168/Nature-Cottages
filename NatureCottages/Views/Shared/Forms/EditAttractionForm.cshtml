@@ -4,7 +4,9 @@
     Layout = "~/Views/Shared/Layout/_Layout.cshtml";
 }
 
-<div align="center" style="margin: 5%;">
+    <a class="back-to-admin-button clickable-anchor" href="@Url.Action("Index", "Admin")"><i class="fa fa-3x fa-arrow-circle-left"></i></a>
+
+<div align="center" style="margin: 5%; padding: 10px;" class="mdl-shadow--4dp">
 
     <h3>Edit Attraction</h3>
 
@@ -46,7 +48,7 @@
 
 
                 <br />
-                <input type="submit" />
+                <input class="mdl-button mdl-button--raised mdl-button--accent" type="submit" />
                 <br />
             </form>
         </div>
@@ -55,13 +57,14 @@
 
         <div class="mdl-cell mdl-cell--6-col">
             @await Html.PartialAsync("ImageViewer", new ImageViewerViewModel { ImageGroup = Model.ImageGroup, IsEditable = true, IsCottage = true})
-
+            
+            <br/>
             <h2>Add Extra Images Here</h2>
 
             <form enctype="multipart/form-data" method="post" action="\Form\AddImages\@Model.ImageGroup.Id\@false">
-                <input type="file" multiple name="images" accept=".png,.jpg,.jpeg" />
+                <input type="file" name="images" accept=".png,.jpg,.jpeg" />
                 <br />
-                <input type="submit" />
+                <input  type="submit" />
             </form>
 
         </div>

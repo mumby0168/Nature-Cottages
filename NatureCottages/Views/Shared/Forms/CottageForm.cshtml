@@ -7,51 +7,60 @@
     Layout = "Layout/_Layout";
 }
 
-<div align="center" style="margin: 5%;">
 
-    <h3>Add Cottage</h3>
-
-    <form method="post" enctype="multipart/form-data" action="/Form/SubmitCottageForm" method="post" style="width: 50%;">
-
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            @Html.LabelFor(m => Model.Cottage.Name, new { @class = "mdl-textfield__label" })
-            @Html.TextBoxFor(m => Model.Cottage.Name, new { @class = "mdl-textfield__input" })
-            @Html.ValidationMessageFor(m => m.Cottage.Name)
-        </div>
-
-        <br />
-
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            @Html.LabelFor(m => Model.Cottage.PricePerNight, new { @class = "mdl-textfield__label" })
-            @Html.TextBoxFor(m => Model.Cottage.PricePerNight, new { @class = "mdl-textfield__input" })
-            @Html.ValidationMessageFor(m => m.Cottage.PricePerNight)
-        </div>
-
-        <br />
-
-        <div class="mdl-js-textfield mdl-textfield mdl-textfield--floating-label">
-            @Html.LabelFor(m => m.Cottage.Description, new { @class = "mdl-textfield__label" })
-            @Html.TextAreaFor(m => m.Cottage.Description, new { @class = "mdl-textfield__input" })
-            @Html.ValidationMessageFor(m => m.Cottage.Description)
-        </div>
+<a class="back-to-admin-button clickable-anchor" href="@Url.Action("Index", "Admin")"><i class="fa fa-3x fa-arrow-circle-left"></i></a>
 
 
+<div class="container">
 
-        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="Cottage_IsVisibleToClient">
-            @Html.CheckBoxFor(m => m.Cottage.IsVisibleToClient, new { @class = "mdl-checkbox__input" })
-            <span class="mdl-checkbox__label">Visible To Client?</span>
-        </label>
-              
-        <br />
-        <br />
+    <div align="center" style="margin: 5%; padding: 15px;" class="mdl-shadow--4dp">
 
-        <div class="">
-            <input name="images" type="file" multiple accept=".png,.jpeg,.jpg" value="" />            
-        </div>
+        <h3>Add Cottage</h3>
+        <hr/>
 
-        <input type="submit" />
+        <form method="post" enctype="multipart/form-data" action="/Form/SubmitCottageForm" method="post" style="width: 50%;">
 
-        <br />
-    </form>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                @Html.LabelFor(m => Model.Cottage.Name, new { @class = "mdl-textfield__label" })
+                @Html.TextBoxFor(m => Model.Cottage.Name, new { @class = "mdl-textfield__input" })
+                @Html.ValidationMessageFor(m => m.Cottage.Name)
+            </div>
 
+            <br />
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                @Html.LabelFor(m => Model.Cottage.PricePerNight, new { @class = "mdl-textfield__label" })
+                @Html.TextBoxFor(m => Model.Cottage.PricePerNight, new { @class = "mdl-textfield__input" })
+                @Html.ValidationMessageFor(m => m.Cottage.PricePerNight)
+            </div>
+
+            <br />
+
+            <div class="mdl-js-textfield mdl-textfield mdl-textfield--floating-label">
+                @Html.LabelFor(m => m.Cottage.Description, new { @class = "mdl-textfield__label" })
+                @Html.TextAreaFor(m => m.Cottage.Description, new { @class = "mdl-textfield__input" })
+                @Html.ValidationMessageFor(m => m.Cottage.Description)
+            </div>
+
+
+
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="Cottage_IsVisibleToClient">
+                @Html.CheckBoxFor(m => m.Cottage.IsVisibleToClient, new { @class = "mdl-checkbox__input" })
+                <span class="mdl-checkbox__label">Visible To Client?</span>
+            </label>
+
+            <br />
+            <br />
+
+            <div class="">
+                <input name="images" type="file" multiple accept=".png,.jpeg,.jpg" value="" />
+            </div>
+            
+            <br/>
+            <input type="submit" class="mdl-button--raised mdl-button mdl-button--accent" />
+
+            <br />
+        </form>
+
+    </div>
 </div>

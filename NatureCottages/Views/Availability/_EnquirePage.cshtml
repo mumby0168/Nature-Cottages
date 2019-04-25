@@ -14,14 +14,19 @@
         <div class="mdl-grid" align="center">
 
             <div class="mdl-cell mdl-cell--6-col center-outer">
-                <div class="center-inner">
+                <div class="center-inner">                    
                     
-                    <h2>@Model.Username</h2>
+                    <div align="ce">
+                        <h2> Hello, </h2>
+                        <h3>@Model.Username</h3>
+                    </div>
+
                     
+                    <hr/>
+                    <br/>
 
                     @using (Html.BeginForm("Enquire", "Availability", FormMethod.Post, new {style = "float: left;"}))
-                    {
-                        <h4>Booking Details</h4>
+                    {                        
 
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             @Html.LabelFor(m => Model.Booking.DateFrom, new {@class = "mdl-textfield__label"})
@@ -45,18 +50,18 @@
                         <button type="submit" class="mdl-button mdl-button--colored mdl-button--raised">Submit</button>
 
 
-                        <ul style="color: red;">                        
+                        <ul style="color: red;">
 
-                        @foreach (var error in Model.Errors)
-                         {
-                             <li>@error</li>
-                         }
-                    
+                            @foreach (var error in Model.Errors)
+                            {
+                                <li>@error</li>
+                            }
+
                         </ul>
 
                     }
-                    
-                    
+
+
 
                 </div>
 

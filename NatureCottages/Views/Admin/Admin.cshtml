@@ -5,61 +5,63 @@
 
 
 <div align="center" style="height: 100%;">
-    <h1>Admin Control Panel</h1>        
     
+    <br/>
+    <h1>Admin Control Panel</h1>
+
     <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--6-col">
-            @Html.ActionLink("Create New Admin Account", "LoadCreateAccountAdmin", "Account", null, new { @class = "mdl-button", @style = "font-size: 22px;" })
+            @Html.ActionLink("Create New Admin Account", "LoadCreateAccountAdmin", "Account", null, new {@class = "mdl-button", @style = "font-size: 22px;"})
         </div>
         <div class="mdl-cell mdl-cell--6-col">
             <a style="font-size: 22px;" class="clickable-anchor" href="\Admin\LoadInbox"><span class="mdl-badge" style="font-weight: bold" data-badge="@Model.Messages">INBOX</span></a>
         </div>
     </div>
-    
+
     <hr/>
-        
+
 
     <div class="mdl-grid full-height-grid" align="center">
-            <div class="admin-tile mdl-cell--6-col-phone mdl-shadow--4dp">
-                <div class="admin-tile-container" align="center">
-                    <div class="center-vertically">
-                        <a class="clickable-anchor" href="@Url.Action("LoadAllCottages", "Admin")">
-                            <i class="fas fa-home fa-9x"></i>
-                            <h2 style="font-size: 22px;"> Cottage Management</h2>
-                        </a>
-                    </div>
+        <div class="admin-tile mdl-cell--6-col-phone mdl-shadow--4dp">
+            <div class="admin-tile-container" align="center">
+                <div class="center-vertically">
+                    <a class="clickable-anchor" href="@Url.Action("LoadAllCottages", "Admin")">
+                        <i class="fas fa-home fa-9x"></i>
+                        <h2 style="font-size: 22px;"> Cottage Management</h2>
+                    </a>
                 </div>
             </div>
-            <div class="admin-tile mdl-cell--6-col-phone mdl-shadow--4dp">
-                <div class="admin-tile-container">
-                    <div class="center-vertically">
-                        <a class="clickable-anchor" href="@Url.Action("LoadActiveAttractions", "Admin")">
-                            <i class="fas fa-newspaper fa-9x"></i>
-                            <h2 style="font-size: 22px;"> News Management</h2>
-                        </a>
-                    </div>
+        </div>
+        <div class="admin-tile mdl-cell--6-col-phone mdl-shadow--4dp">
+            <div class="admin-tile-container">
+                <div class="center-vertically">
+                    <a class="clickable-anchor" href="@Url.Action("LoadActiveAttractions", "Admin")">
+                        <i class="fas fa-newspaper fa-9x"></i>
+                        <h2 style="font-size: 22px;"> News Management</h2>
+                    </a>
                 </div>
             </div>
-            <div class="admin-tile mdl-cell--6-col-phone mdl-shadow--4dp">
-                <div class="admin-tile-container">
-                    <div class="center-vertically">
-                        <a class="clickable-anchor" href="@Url.Action("LoadBookingRequests", "Admin")">
-                            <i class="fas fa-address-card fa-9x"></i>
-                            <h2 style="font-size: 22px;"> Booking Requests</h2>
-                        </a>
-                    </div>
+        </div>
+        <div class="admin-tile mdl-cell--6-col-phone mdl-shadow--4dp">
+            <div class="admin-tile-container">
+                <div class="center-vertically">
+                    <a class="clickable-anchor" href="@Url.Action("LoadBookingRequests", "Admin")">
+                        <i class="fas fa-address-card fa-9x"></i>
+                        <h2 style="font-size: 22px;"> Booking Requests</h2>
+                    </a>
                 </div>
             </div>
-            <div class="admin-tile mdl-cell--6-col-phone mdl-shadow--4dp">
-                <div class="admin-tile-container">
-                    <div class="center-vertically">
-                        <a class="clickable-anchor" href="@Url.Action("LoadFacebookManagement", "Admin")">
-                            <i class="fab fa-facebook fa-9x"></i>
-                            <h2 style="font-size: 22px;"> Facebook Posts Management</h2>
-                        </a>
-                    </div>
+        </div>
+        <div class="admin-tile mdl-cell--6-col-phone mdl-shadow--4dp">
+            <div class="admin-tile-container">
+                <div class="center-vertically">
+                    <a class="clickable-anchor" href="@Url.Action("LoadFacebookManagement", "Admin")">
+                        <i class="fab fa-facebook fa-9x"></i>
+                        <h2 style="font-size: 22px;"> Facebook Posts Management</h2>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+</div>
 

@@ -9,7 +9,10 @@
     Layout = "Layout/_Layout";
 }
 
-<div align="center" style="margin: 5%;">
+
+    <a class="back-to-admin-button clickable-anchor" href="@Url.Action("Index", "Admin")"><i class="fa fa-3x fa-arrow-circle-left"></i></a>
+
+<div align="center" class="mdl-shadow--4dp" style="margin: 5%; padding: 10px;">
       
     <h3>Edit Cottage</h3>
     
@@ -39,7 +42,7 @@
                     @Html.TextAreaFor(m => m.Cottage.Description, new { @class = "mdl-textfield__input" })
                     @Html.ValidationMessageFor(m => m.Cottage.Description)
                 </div>
-
+                
                 <br />
 
                 <div class="mdl-js-textfield mdl-textfield mdl-textfield--floating-label">
@@ -50,7 +53,8 @@
                 @Html.HiddenFor(m => m.Cottage.Id)
 
                 <br />
-                <input type="submit" />
+                <br/>
+                <input type="submit"  class="mdl-button mdl-button--raised mdl-button--accent"/>
                 <br />
             </form>
         </div>
@@ -58,12 +62,16 @@
         
 
         <div class="mdl-cell mdl-cell--6-col">
-            @await Html.PartialAsync("ImageViewer", new ImageViewerViewModel{ImageGroup = Model.Cottage.ImageGroup, IsEditable = true})                        
             
+
+            @await Html.PartialAsync("ImageViewer", new ImageViewerViewModel {ImageGroup = Model.Cottage.ImageGroup, IsEditable = true})
+            
+            <br/>
+
             <h2>Add Extra Images Here</h2>
 
             <form enctype="multipart/form-data" method="post" action="\Form\AddImages\@Model.Cottage.ImageGroup.Id\@true">
-                <input type="file" multiple name="images" accept=".png,.jpg,.jpeg"/>
+                <input type="file" multiple name="images" accept=".png,.jpg,.jpeg"/>                
                 <br/>
                 <input type="submit"/>
             </form>

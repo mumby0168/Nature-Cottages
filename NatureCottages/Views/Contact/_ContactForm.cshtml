@@ -3,37 +3,38 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-    <div>
-        <h2>Contact Us</h2>
+<div>
+    <br/>
+    <h2>Contact Us</h2>
 
 
-        @using (Html.BeginForm("SendClientMessage", "Contact", FormMethod.Post))
-        {
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                @Html.LabelFor(m => Model.Name, new {@class = "mdl-textfield__label"})
-                @Html.TextBoxFor(m => Model.Name, new {@class = "mdl-textfield__input"})
-                @Html.ValidationMessageFor(m => m.Name)
-            </div>
+    @using (Html.BeginForm("SendClientMessage", "Contact", FormMethod.Post))
+    {
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            @Html.LabelFor(m => Model.Name, new {@class = "mdl-textfield__label"})
+            @Html.TextBoxFor(m => Model.Name, new {@class = "mdl-textfield__input"})
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
 
-            <br />
+        <br/>
 
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                @Html.LabelFor(m => Model.Email, new {@class = "mdl-textfield__label"})
-                @Html.TextBoxFor(m => Model.Email, new {@class = "mdl-textfield__input"})
-                @Html.ValidationMessageFor(m => m.Email)
-            </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            @Html.LabelFor(m => Model.Email, new {@class = "mdl-textfield__label"})
+            @Html.TextBoxFor(m => Model.Email, new {@class = "mdl-textfield__input"})
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
 
-            <br />
+        <br/>
 
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                @Html.LabelFor(m => Model.Message, new {@class = "mdl-textfield__label"})
-                @Html.TextAreaFor(m => Model.Message, new {@class = "mdl-textfield__input"})
-                @Html.ValidationMessageFor(m => m.Message)
-            </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            @Html.LabelFor(m => Model.Message, new {@class = "mdl-textfield__label"})
+            @Html.TextAreaFor(m => Model.Message, new {@class = "mdl-textfield__input"})
+            @Html.ValidationMessageFor(m => m.Message)
+        </div>
 
-            <br />
+        <br/>
 
 
-            <button class="mdl-button mdl-button--raised" type="submit">Send</button>
-        }
+        <button class="mdl-button mdl-button--raised" type="submit">Send</button>
+    }
 </div>

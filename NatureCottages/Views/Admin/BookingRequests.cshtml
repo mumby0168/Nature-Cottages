@@ -7,24 +7,27 @@
     Layout = "Layout/_Layout";
 }
 
+    <a class="back-to-admin-button clickable-anchor" href="@Url.Action("Index", "Admin")"><i class="fa fa-3x fa-arrow-circle-left"></i></a>
+
 <div class="center-vetical-horizontal-outer">
     <div align="center" class="center-vetical-horizontal-inner">
 
-    <h3>Booking Requests</h3>
 
+        <h3>Booking Requests</h3>
+        <br />
         <table class="mdl-data-table mdl-shadow--2dp">
             <thead>
-            <tr>
-                <th>Customer Name</th>
-                <th>Cotttage Name</th>
-                <th>Booking Start</th>
-                <th>Booking End</th>
-                <th>Booking Duration</th>
-                <th>Accept/Decline</th>
-            </tr>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Cotttage Name</th>
+                    <th>Booking Start</th>
+                    <th>Booking End</th>
+                    <th>Booking Duration</th>
+                    <th>Accept/Decline</th>
+                </tr>
             </thead>
             <tbody>
-            @foreach (var booking in Model.UnApprovedBookings)
+                @foreach (var booking in Model.UnApprovedBookings)
             {
                 <tr>
                     <td>
