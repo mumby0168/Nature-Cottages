@@ -80,14 +80,13 @@ namespace NatureCottages.Services.Services
             if (account == null) return false;
 
             var passwordMatches = _passwordProtectionService.Check(password, account.Password, account.Salt);
-
-            var customer = await _customerRepository.SingleOrDefaultAysnc(c => c.AccountId == account.Id);
+            
 
             if (passwordMatches)
             {
                 var claimIdent = new ClaimsIdentity(new List<Claim>()
                 {
-                    new Claim(ClaimTypes.NameIdentifier, customer.Id.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
                     new Claim(ClaimTypes.Email, account.Username),
                     new Claim(ClaimTypes.Role, account.AccountType.ToString()),                    
                 }, CookieAuthenticationDefaults.AuthenticationScheme);
