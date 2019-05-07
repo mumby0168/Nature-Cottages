@@ -1,9 +1,13 @@
-﻿@using Microsoft.AspNetCore.Http
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Http
 @using NatureCottages
 
 @{
     Layout = null;
 }
+
+@inject IHttpContextAccessor HttpContextAccessor
+
 
 <!DOCTYPE html>
 
@@ -52,13 +56,23 @@
                     </button>
                     
                     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-                        for="demo-menu-lower-left">                        
-                        <li class="mdl-menu__item">
-                            @Html.ActionLink("Login", "LoadLogin", "Account", new object { }, new { @class = "clickable-anchor" })
-                        </li>
-                        <li class="mdl-menu__item">
-                            @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "clickable-anchor" })
-                        </li>
+                        for="demo-menu-lower-left">             
+                        
+                        @if (HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+                        {
+                            <li disabled class="mdl-menu__item">
+                                <i class="fa fa-user-circle"></i>  @HttpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value
+                            </li>
+                            <li >
+                                  @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "mdl-navigation__link" })
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                @Html.ActionLink("Login", "LoadLogin", "Account", new object { }, new { @class = "mdl-navigation__link" })
+                            </li>
+                        }                                             
                     </ul>
 
                 </nav>

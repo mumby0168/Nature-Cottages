@@ -58,6 +58,8 @@ namespace NatureCottages
             services.AddScoped<INullStringModelChecker, NullStringModelChecker>();            
             services.AddSingleton<IUser, CurrentUser>();
 
+            services.AddHttpContextAccessor();
+
             services
                 .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
