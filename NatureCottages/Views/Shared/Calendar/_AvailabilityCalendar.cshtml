@@ -29,12 +29,12 @@
             className = Model.DaysInMonth[i].IsBooked ? "booked-date" : "unbooked-date";
 
 
-        <div class="mdl-cell--1-col mdl-cell mdl-shadow--8dp standard-date @className">
+        <div class="mdl-cell--1-col mdl-cell mdl-shadow--4dp standard-date @className">
             <h2>@Model.DaysInMonth[i].Day</h2>
             @if (@Model.DaysInMonth[i].IsBooked)
             {
                 <div style="color: red">
-                    <i class="far fa-window-close"></i>
+                    <i class="fa fa-window-close"></i>
                 </div>
             }
         </div>

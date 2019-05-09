@@ -34,11 +34,7 @@ namespace NatureCottages
                 //add routes here.
             });
 
-
-            string dbConnectionString =
-                @"server=176.32.230.252;port=3306;pwd=NatureCottages123;uid=cl57-mumby0168;database=cl57-mumby0168;;";
-
-            services.AddDbContext<CottageDbContext>(options => { options.UseMySql(dbConnectionString); });
+            SetupDatabase(services, true);
 
             services.AddScoped<IAttractionRepository, AttractionRepository>();
             services.AddScoped<ICottageRepository, CottageRepository>();
@@ -72,6 +68,22 @@ namespace NatureCottages
             services.AddAutoMapper();
 
 
+        }
+
+        private void SetupDatabase(IServiceCollection services, bool isDev)
+        {
+            string dbConnectionString;
+            if (isDev)
+            {
+                dbConnectionString =
+                    @"server=176.32.230.252;port=3306;pwd=NatureCottages123;uid=cl57-mumby0168;database=cl57-mumby0168;;";
+
+                services.AddDbContext<CottageDbContext>(options => { options.UseMySql(dbConnectionString); });
+            }
+            else
+            {
+               //PROD SETUP
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
