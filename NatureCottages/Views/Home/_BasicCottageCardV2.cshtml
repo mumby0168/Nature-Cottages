@@ -27,8 +27,11 @@
         </div>
         <hr />
         <p class="card-text">@Model.Cottage.Description</p>
+        
+        <div>
 
-        @Html.ActionLink("More Info", "Index", "Availability", null, new { @class = "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" })
+            @Html.ActionLink("More Info", "Index", "Availability", null, new { @class = "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect card-bottom-button" })
+            </div>
 
-    </div>
+        </div>
 </div>

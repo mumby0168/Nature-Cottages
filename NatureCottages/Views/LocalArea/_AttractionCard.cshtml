@@ -21,7 +21,7 @@
     
   }
 
-<div style="height: 100%;" class="card mdl-shadow--4dp d-flex flex-column">
+<div style="height: 100%;" class="mdl-shadow--4dp">
     <img class="card-img-top" src="@imgpath" style="height: 50%" />
     
     <div class="card-body">
@@ -30,9 +30,10 @@
         </div>
         <hr />
         <p class="card-text">@Model.Attraction.Description</p>
-
-        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="@Model.Attraction.Link">More Info</a>
-
+        
+        <div>
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect card-bottom-button" href="@Model.Attraction.Link">More Info</a>
+        </div>
     </div>
 
 </div>

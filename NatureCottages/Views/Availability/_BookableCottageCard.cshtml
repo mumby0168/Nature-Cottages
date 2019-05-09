@@ -9,7 +9,8 @@
     var imgpath = images[0].ImagePath;
 }
 
-    <div sliderIndex="0" class="card cottage-card mdl-shadow--4dp d-flex flex-column">
+
+<div sliderIndex="0" class="card cottage-card mdl-shadow--4dp d-flex flex-column">
         @foreach (var image in images)
     {
         <img class="card-img-top card-img" src="@image.ImagePath" alt="Cottage Image" />
@@ -33,7 +34,11 @@
           
             <p class="card-text">@Model.Cottage.Description</p>
             
-                @Html.ActionLink("Enquire Now", "LoadEnquirePage", "Availability", new { cottageid = Model.Cottage.Id }, new { @class = "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect align-self-end" })            
+            <div>
+                @Html.ActionLink("Enquire Now", "LoadEnquirePage", "Availability", new { cottageid = Model.Cottage.Id }, new { @class = "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect card-bottom-button" })
+            </div>
+            
+            
                     
                 </div>            
     </div>

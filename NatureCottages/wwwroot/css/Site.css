@@ -117,7 +117,11 @@ height: 100%;
 text-align: left;*/
 
 .cottage-card {
-    height: 90%;
+    height: 45%;   
+}
+
+.card-body > p {
+    font-size: 0.75rem;
 }
 
 .card-img-top {
@@ -126,7 +130,7 @@ text-align: left;*/
 
 .attraction-card {
     width: 80%;
-    height: 70%;
+    height: 20%;
 }
 
 
@@ -246,3 +250,11 @@ text-align: left;*/
     margin: 20px;
 }
 
+.card-bottom-button {
+    position: absolute;
+    bottom: 1px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}

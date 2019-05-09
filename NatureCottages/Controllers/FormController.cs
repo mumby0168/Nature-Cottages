@@ -168,7 +168,10 @@ namespace NatureCottages.Controllers
         {
             var attraction = await _attractionRepository.GetAsync(vm.Id);
 
-            _mapper.Map<EditAttractionViewModel, Attraction>(vm, attraction);
+            attraction.Name = vm.Name;
+            attraction.Description = vm.Description;
+            attraction.Link = vm.Link;
+            attraction.IsVisibleToClient = vm.IsVisibleToClient;
 
             await _attractionRepository.SaveAsync();
 
