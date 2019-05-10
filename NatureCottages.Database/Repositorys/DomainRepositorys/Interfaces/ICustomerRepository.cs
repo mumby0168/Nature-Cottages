@@ -11,5 +11,6 @@ namespace NatureCottages.Database.Repositorys.DomainRepositorys.Interfaces
     public interface ICustomerRepository : IRepository<Customer>, IRepositoryAsync<Customer>
     {
         Task<Customer> GetCustomerByUsernameWithAccount(string username);
+        Task<int> GetCustomerByAccountIdAsync(int accountId);
     }
 }

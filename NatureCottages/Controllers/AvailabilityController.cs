@@ -20,12 +20,14 @@ namespace NatureCottages.Controllers
         private readonly ICottageRepository _cottageRepository;
         private readonly IBookingRepository _bookingRepository;
         private readonly IDateCheckerService _dateCheckerService;
+        private readonly ICustomerRepository _customerRepository;
 
-        public AvailabilityController(ICottageRepository cottageRepository, IBookingRepository bookingRepository, IDateCheckerService dateCheckerService)
+        public AvailabilityController(ICottageRepository cottageRepository, IBookingRepository bookingRepository, IDateCheckerService dateCheckerService, ICustomerRepository customerRepository)
         {
             _cottageRepository = cottageRepository;
             _bookingRepository = bookingRepository;
             _dateCheckerService = dateCheckerService;
+            _customerRepository = customerRepository;
         }
         public async Task<IActionResult> Index()
         {            
@@ -92,8 +94,10 @@ namespace NatureCottages.Controllers
                     }   
                 }
 
-                int customerId = int.Parse(HttpContext.User.Claims
+                int accountId = int.Parse(HttpContext.User.Claims
                     .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
+
+                int customerId = await _customerRepository.GetCustomerByAccountIdAsync(accountId);
 
                 booking.CustomerId = customerId;
 

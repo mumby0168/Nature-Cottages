@@ -21,5 +21,15 @@ namespace NatureCottages.Database.Repositorys.DomainRepositorys
         {
             return await Task.Run(() => Context.Customers.Include(c => c.Account).FirstOrDefault(c => c.Account.Username == username));
         }
+
+        public async Task<int> GetCustomerByAccountIdAsync(int accountId)
+        {
+            var customer  = await Context.Customers.FirstOrDefaultAsync(c => c.AccountId == accountId);
+
+            if(customer == null)
+                throw new NullReferenceException("Customer is null upon retrieval");
+
+            return customer.Id;
+        }
     }
 }
