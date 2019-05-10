@@ -17,7 +17,7 @@
             <div class="row">
                 @foreach (var cottage in Model.Cottages)
                 {
-                    <div class="col-3" align="center">
+                    <div class="col-sm-4" align="center">
                         @{
                             BookableCottageViewModel vm = new BookableCottageViewModel();
                             vm.Cottage = cottage;

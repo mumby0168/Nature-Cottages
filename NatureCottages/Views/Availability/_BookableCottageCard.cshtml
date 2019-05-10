@@ -9,39 +9,40 @@
     var imgpath = images[0].ImagePath;
 }
 
-
-<div sliderIndex="0" class="card cottage-card mdl-shadow--4dp d-flex flex-column">
-        @foreach (var image in images)
+    
+        <div sliderIndex="0" style="height: 35rem; margin-bottom: 10px;" class="card cottage-card mdl-shadow--4dp d-flex flex-column">
+            @foreach (var image in images)
     {
-        <img class="card-img-top card-img" src="@image.ImagePath" alt="Cottage Image" />
+            <img class="card-img-top card-img" src="@image.ImagePath" alt="Cottage Image" />
     }
 
-        <div class="card-img-overlay">
-            <button id="right-slider-button" style="float: right; margin: 2px;" class="right-slider-button btn-material-primary card-link btn">
-                <i class="material-icons">arrow_forward</i>
-            </button>
+            <div class="card-img-overlay">
+                <button id="right-slider-button" style="float: right; margin: 2px;" class="right-slider-button btn-material-primary card-link btn">
+                    <i class="material-icons">arrow_forward</i>
+                </button>
 
-            <button style="float: left; margin: 2px;" class="left-slider-button card-link btn btn-material-primary">
-                <i class="material-icons">arrow_back</i>
-            </button>
-        </div>
-
-        <div class="card-body">
-            <div class="card-title">
-                @Model.Cottage.Name
-                <hr />
-            </div>            
-          
-            <p class="card-text">@Model.Cottage.Description</p>
-            
-            <div>
-                @Html.ActionLink("Enquire Now", "LoadEnquirePage", "Availability", new { cottageid = Model.Cottage.Id }, new { @class = "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect card-bottom-button" })
+                <button style="float: left; margin: 2px;" class="left-slider-button card-link btn btn-material-primary">
+                    <i class="material-icons">arrow_back</i>
+                </button>
             </div>
-            
-            
-                    
-                </div>            
-    </div>
+
+            <div class="card-body">
+                <div class="card-title">
+                    @Model.Cottage.Name
+                    <hr />
+                </div>
+
+                <p class="card-text">@Model.Cottage.Description</p>
+
+                <div>
+                    @Html.ActionLink("Enquire Now", "LoadEnquirePage", "Availability", new { cottageid = Model.Cottage.Id }, new { @class = "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect card-bottom-button" })
+                </div>
+
+
+
+            </div>
+        </div>
+   
 
        
 

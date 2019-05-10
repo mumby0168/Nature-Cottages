@@ -8,6 +8,19 @@
 
 @inject IHttpContextAccessor HttpContextAccessor
 
+@{
+    bool admin = false;
+
+    if (HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+    {
+        if(HttpContextAccessor.HttpContext.User.Claims
+            .FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "Admin")
+        {
+            admin = true;
+        }
+    }
+}
+
 
 <!DOCTYPE html>
 
@@ -52,6 +65,10 @@
                     @Html.ActionLink("Availability", "Index", "Availability", new object { }, new { @class = "mdl-navigation__link" })
                     @Html.ActionLink("Contact", "Index", "Contact", new object { }, new { @class = "mdl-navigation__link" })
                     @Html.ActionLink("News", "Index", "LocalArea", new object { }, new { @class = "mdl-navigation__link" })
+                    @if (admin)
+                    {
+                        @Html.ActionLink("Admin Control Panel", "Index", "Admin", new object { }, new { @class = "mdl-navigation__link" })
+                    }
 
 
                     <button id="demo-menu-lower-left"
@@ -64,18 +81,18 @@
 
                         @if (HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
                         {
-                            <li disabled class="mdl-menu__item">
-                                <i class="fa fa-user-circle"></i>  @HttpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value
-                            </li>
-                            <li>
-                                @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "mdl-navigation__link" })
-                            </li>
+                        <li disabled class="mdl-menu__item">
+                            <i class="fa fa-user-circle"></i>  @HttpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value
+                        </li>
+                        <li>
+                            @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "mdl-navigation__link" })
+                        </li>
                         }
                         else
                         {
-                            <li>
-                                @Html.ActionLink("Login", "LoadLogin", "Account", new object { }, new { @class = "mdl-navigation__link" })
-                            </li>
+                        <li>
+                            @Html.ActionLink("Login", "LoadLogin", "Account", new object { }, new { @class = "mdl-navigation__link" })
+                        </li>
                         }
                     </ul>
 

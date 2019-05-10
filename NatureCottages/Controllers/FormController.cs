@@ -44,9 +44,17 @@ namespace NatureCottages.Controllers
 
         public async Task<IActionResult> LoadAttractionEditForm(int id)
         {
-            var attraction = await _attractionRepository.GetAttractionWithImageGroupAsync(id);            
+            var attraction = await _attractionRepository.GetAttractionWithImageGroupAsync(id);
 
-            var vm = _mapper.Map<Attraction, EditAttractionViewModel>(attraction);
+            var vm = new EditAttractionViewModel()
+            {
+                Description = attraction.Description,
+                Id = attraction.Id,
+                ImageGroup = attraction.ImageGroup,
+                IsVisibleToClient = attraction.IsVisibleToClient,
+                Link = attraction.Link,
+                Name = attraction.Name
+            };
 
             return View("Forms/EditAttractionForm", vm);
         }

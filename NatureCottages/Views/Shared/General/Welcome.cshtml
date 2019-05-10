@@ -3,10 +3,17 @@
     Layout = "Layout/_Layout";
 }
 
-<div align="center">
-    <h2>Welcome @Model.Username you now have an account.</h2>
-    
-    <p>Please login using the following link. @Html.ActionLink("Login Here.", "LoadLogin", "Account")</p>
 
+
+
+<div class="center-vetical-horizontal-outer">
+    <div class="center-vetical-horizontal-inner" >
+        <div class="mdl-shadow--4dp login-form-wrapper" align="center">
+            <i class="fa fa-thumbs-up fa-7x"></i>
+            <br/>
+            <h2>Welcome: @Model.Username</h2>
+            <p>Please login using the following link. @Html.ActionLink("Login Here.", "LoadLogin", "Account")</p>
+        </div>
+    </div>
 </div>
 

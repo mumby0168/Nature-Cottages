@@ -11,17 +11,24 @@
                 <i class="fas fa-long-arrow-alt-left fa-5x"></i>
             </div>            
         </div>
+        
+        
+        
         <div class="mdl-cell--4-col mdl-cell calendar-text-center">
-            <h2>@Model.Month @Model.Year</h2>
+            <div class="center-vetical-horizontal-outer">
+                <div class="center-vetical-horizontal-inner">
+                    <h2>@Model.Month @Model.Year</h2>
+                </div>
+            </div>    
         </div>
         <div class="mdl-cell--4-col mdl-cell calendar-text-center center-outer" >
             <div class="center-inner calendar-arrow-div" id="CalendarForward">
-                <i class="fas fa-long-arrow-alt-right fa-5x"></i>
+               <i class="fa fa-long-arrow-alt-right fa-5x"></i>
             </div>
         </div>
     </div>
 
-    <div class="mdl-grid">
+    <div class="mdl-grid"">
         @for (int i = 0; i < Model.DaysInMonth.Count; i++)
         {
 
@@ -29,7 +36,7 @@
             className = Model.DaysInMonth[i].IsBooked ? "booked-date" : "unbooked-date";
 
 
-        <div class="mdl-cell--1-col mdl-cell mdl-shadow--4dp standard-date @className">
+        <div class="mdl-cell--1-col mdl-cell mdl-shadow--4dp standard-date calendar-cell @className">
             <h2>@Model.DaysInMonth[i].Day</h2>
             @if (@Model.DaysInMonth[i].IsBooked)
             {
